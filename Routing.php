@@ -12,7 +12,7 @@ class Router {
     public static function run($url) {
         $action = explode("/", $url)[0];
         if (!array_key_exists($action, self::$routes)) {
-            die("Wrong url!");
+            return print(AppController::get404View());
         }
 
         $controller = self::$routes[$action];
