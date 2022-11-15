@@ -1,7 +1,7 @@
 <div class="top-bar">
   <a class="branding" href="/">
-    <img class="logo" src="public/img/logo.svg" alt="Guessar" />
-    <img class="icon" src="public/img/flag.svg" alt="Guessar" />
+    <img class="logo" src="/public/img/logo.svg" alt="Guessar" />
+    <img class="icon" src="/public/img/flag.svg" alt="Guessar" />
   </a>
 
   <nav class="nav-bar" id="navBar">

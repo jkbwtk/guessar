@@ -7,14 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Guessar - 404</title>
 
-  <link rel="preload" href="public/fonts/SquarishSansCTRegular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-  <link rel="preload" href="public/img/logo.svg" as="image">
-  <link rel="preload" href="public/img/flag.svg" as="image">
+  <link rel="preload" href="/public/fonts/SquarishSansCTRegular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/public/img/logo.svg" as="image">
+  <link rel="preload" href="/public/img/flag.svg" as="image">
 
-  <link rel="icon" type="image/svg+xml" href="public/img/favicon.ico" />
-  <link rel="stylesheet" type="text/css" href="public/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="/public/img/favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="/public/css/style.css">
 
-  <script type="module" src="public/js/index.js"></script>
+  <script type="module" src="/public/js/index.js"></script>
 </head>
 
 <body>
