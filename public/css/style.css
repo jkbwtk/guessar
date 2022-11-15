@@ -36,7 +36,7 @@
 }
 
 :root {
-    --app-font-family: 'Squarish Sans CT Regular';
+    --app-font-family: 'Squarish Sans CT Regular', Sans-Serif;
 
     font-family: var(--app-font-family);
     font-size: 16px;
