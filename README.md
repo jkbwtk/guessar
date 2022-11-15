@@ -1,3 +1,5 @@
+![](https://github.com/jkbwtk/guessar/blob/4f9f4ad622ae000350bcea25eca7287fecb687a6/public/img/logo.svg)
+
 # Guessar
 GTA:SA geo guessing website
 
