@@ -127,6 +127,7 @@ body {
     font-size: 24px;
     color: var(--app-font-color);
     text-decoration: none;
+    user-select: none;
 
     height: inherit;
 
@@ -185,6 +186,12 @@ body {
 button {
     font-family: var(--app-font-family);
     color: var(--app-button-font-color);
+
+    outline: none;
+}
+
+a {
+    outline: none;
 }
 
 .button-small {
@@ -293,4 +300,38 @@ button {
     background-image: url('../img/background04.webp');
     background-position: top center;
     background-repeat: no-repeat;
+}
+
+.background03 {
+    position: absolute;
+
+    right: 10%;
+
+    margin-top: 110px;
+    margin-bottom: 110px;
+    height: calc(100vh - 220px);
+    width: calc(100vw - 20%);
+
+    z-index: -1;
+    background-image: url('../img/background03.webp');
+    background-position: center right;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.background01 {
+    position: absolute;
+
+    right: 10%;
+
+    margin-top: 110px;
+    margin-bottom: 110px;
+    height: calc(100vh - 220px);
+    width: calc(100vw - 20%);
+
+    z-index: -1;
+    background-image: url('../img/background01.webp');
+    background-position: center right;
+    background-repeat: no-repeat;
+    background-size: contain;
 }

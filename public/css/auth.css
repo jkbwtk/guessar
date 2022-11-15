@@ -1,0 +1,193 @@
+.auth-box {
+    position: absolute;
+    width: 400px;
+    left: 10%;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    background: #FFFFFF;
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: flex-end; */
+}
+
+.login-box {
+    height: 498px;
+}
+
+.register-box {
+    height: 617px;
+}
+
+.login-box .register-element {
+    display: none;
+}
+
+.register-box .login-element {
+    display: none;
+}
+
+.login-title {
+    font-size: 48px;
+    color: #000000;
+
+    margin-bottom: 0px;
+}
+
+.login-hint {
+    font-size: 16px;
+    color: #969696;
+
+    margin-top: 0px;
+    margin-bottom: 25px;
+}
+
+.login-field-group {
+    width: 100%;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 20px;
+}
+
+.login-input {
+    width: 275px;
+    height: 39px;
+
+    box-sizing: border-box;
+
+    font-size: 16px;
+    color: var(--app-bg-color);
+    font-family: var(--app-font-family);
+
+    padding-left: 20px;
+    padding-right: 20px;
+
+    background: #F4F4F4;
+    border-radius: 25px;
+    border: none;
+}
+
+.login-input::selection {
+    background-color: #101010;
+    color: #FFFFFF;
+}
+
+.login-password-group {
+    position: relative;
+}
+
+.login-password-group>.login-input {
+    padding-right: 55px;
+}
+
+.login-show-password {
+    position: absolute;
+    right: 15px;
+
+    height: 25px;
+
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.login-show-password:hover {
+    cursor: pointer;
+}
+
+.login-submit-button {
+    height: 45px;
+    border-radius: 50px;
+
+    padding-left: 20px;
+    padding-right: 20px;
+
+    margin-top: 25px;
+
+    flex-shrink: 0;
+}
+
+.login-alt-group {
+    width: 100%;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 25px;
+
+    gap: 20px;
+}
+
+.login-continue-google {
+    width: 275px;
+    height: 39px;
+
+    background: #1B66C9;
+    border-radius: 50px;
+    border: none;
+
+    font-size: 16px;
+}
+
+.login-continue-github {
+    width: 275px;
+    height: 39px;
+
+    background: #232629;
+    border-radius: 50px;
+    border: none;
+
+    font-size: 16px;
+}
+
+.login-option-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.login-option {
+    font-size: 16px;
+    color: #000000;
+
+    height: 23px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+
+    display: flex;
+    align-items: center;
+}
+
+.login-option>span {
+    height: inherit;
+
+    display: flex;
+    align-items: center;
+}
+
+.login-option>a {
+    color: var(--app-acc-color);
+    text-decoration: none;
+
+    height: inherit;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.login-option>a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
