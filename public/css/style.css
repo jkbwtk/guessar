@@ -1,0 +1,296 @@
+/* latin */
+@font-face {
+    font-family: 'Squarish Sans CT Regular';
+    src: url('../fonts/SquarishSansCTRegular.woff2');
+    /* src: url('../fonts/squarish_sans_ct_regular.ttf'); */
+    /* src: url('https://raw.githubusercontent.com/opensourcedesign/fonts/96da5c8b6cdc1b91d2ee58efef3f0402f5a47217/squarishSans/Squarish%20Sans%20CT%20Regular.ttf'); */
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --app-bg-color: #101010;
+
+        --app-font-color: #FFFFFF;
+        --app-button-font-color: #FFFFFF;
+        --app-aux-font-color: #EAEAEA;
+
+        --app-acc-color: #EB6645;
+        --app-aux-color: #21395E;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --app-bg-color: #FFFFFF;
+
+        --app-font-color: #101010;
+        --app-button-font-color: #FFFFFF;
+        --app-aux-font-color: #202020;
+
+        --app-acc-color: #EB6645;
+        --app-aux-color: #21395E;
+    }
+}
+
+:root {
+    --app-font-family: 'Squarish Sans CT Regular';
+
+    font-family: var(--app-font-family);
+    font-size: 16px;
+    font-weight: 400;
+
+    color-scheme: dark;
+    color: var(--app-font-color);
+    background-color: var(--app-bg-color);
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.container {
+    width: inherit;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: top;
+}
+
+.top-bar {
+    width: 100%;
+    height: fit-content;
+    box-sizing: border-box;
+
+    padding: 30px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.branding {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.logo {
+    height: 40px;
+}
+
+.icon {
+    height: 40px;
+    display: none;
+}
+
+@media screen and (max-width: 720px) {
+    .logo {
+        display: none;
+    }
+
+    .icon {
+        display: initial;
+    }
+}
+
+.nav-bar {
+    height: inherit;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: stretch;
+
+    margin-left: 30px;
+    /* margin-left: auto; */
+    margin-right: auto;
+
+    gap: 30px;
+}
+
+.nav-link {
+    font-size: 24px;
+    color: var(--app-font-color);
+    text-decoration: none;
+
+    height: inherit;
+
+    margin-top: 2px;
+    margin-bottom: 3px;
+    box-sizing: border-box;
+
+    transition: border-bottom 0.2s ease-in-out;
+}
+
+.nav-link::selection {
+    background-color: transparent;
+}
+
+.nav-link:hover {
+    cursor: pointer;
+}
+
+.nav-link-active {
+    border-bottom: 2px solid var(--app-font-color);
+}
+
+#navBurger {
+    height: 25px;
+}
+
+.nav-menu {
+    position: absolute;
+    opacity: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px;
+    margin-top: 10px;
+
+    background-color: var(--app-aux-color);
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px 0px #21395E80;
+
+    transition: opacity 0.25s;
+}
+
+.auth-group {
+    height: inherit;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    gap: 30px;
+}
+
+button {
+    font-family: var(--app-font-family);
+    color: var(--app-button-font-color);
+}
+
+.button-small {
+    height: 40px;
+    font-size: 24px;
+    text-transform: uppercase;
+
+    background-color: var(--app-acc-color);
+
+    padding-left: 12px;
+    padding-right: 12px;
+
+    border: none;
+    border-radius: 20px;
+
+    box-shadow: 0px 0px 20px 0px #eb664580;
+
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.button-small:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 20px 0px #eb6645;
+}
+
+.button-big {
+    height: 57px;
+    width: fit-content;
+    font-size: 32px;
+    text-transform: uppercase;
+
+    background-color: var(--app-acc-color);
+
+    padding-left: 15px;
+    padding-right: 15px;
+
+    border: none;
+    border-radius: 30px;
+
+    margin: 10px;
+
+    box-shadow: 0px 0px 20px 0px #eb664580;
+
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.button-big:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 20px 0px #eb6645;
+}
+
+.button-aux {
+    height: 45px;
+    font-size: 24px;
+    text-transform: uppercase;
+
+    background-color: var(--app-aux-color);
+
+    padding-left: 12px;
+    padding-right: 12px;
+
+    border: none;
+    border-radius: 20px;
+
+    margin: 10px;
+
+    box-shadow: 0px 0px 20px 0px #21395E80;
+
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.button-aux:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 20px 0px #21395E;
+}
+
+.text-logo {
+    font-size: 96px;
+
+    margin-top: 130px;
+    margin-bottom: 5px;
+
+    text-align: center;
+    letter-spacing: -0.075em;
+}
+
+.catchphrase {
+    font-size: 32px;
+
+    margin-top: 0px;
+    margin-bottom: 135px;
+    text-align: center;
+
+    color: var(--app-aux-font-color);
+}
+
+.background04 {
+    position: absolute;
+
+    width: 100%;
+    margin-top: 90px;
+
+    height: 190%;
+
+    z-index: -1;
+    background-image: url('../img/background04.webp');
+    background-position: top center;
+    background-repeat: no-repeat;
+}
