@@ -73,11 +73,21 @@
     background: #F4F4F4;
     border-radius: 25px;
     border: none;
+
+    transition: background-color 0.25s ease-in-out;
 }
 
 .login-input::selection {
     background-color: #101010;
     color: #FFFFFF;
+}
+
+.login-invalid-input {
+    background-color: #eec8c8 !important;
+
+    outline-color: #e67070;
+    outline-width: 2px;
+    outline-style: solid;
 }
 
 .login-password-group {

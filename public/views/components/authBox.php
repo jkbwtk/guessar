@@ -16,9 +16,9 @@ function getAuthTypeFromURI() {
   <p class="login-hint register-element">Create a free acount with your email.</p>
 
   <div class="login-field-group">
-    <input class="login-input" type="text" id="logUsername" name="username" pattern="text" placeholder="Username" required>
+    <input class="login-input register-element" type="text" id="logUsername" name="username" pattern="text" placeholder="Username" required>
 
-    <input class="login-input register-element" type="email" id="logEmail" name="email" pattern="email" placeholder="Email" required>
+    <input class="login-input" type="email" id="logEmail" name="email" pattern="email" placeholder="Email" required>
 
     <div class="login-password-group">
       <img class="login-show-password" src="/public/img/eyeIcon.svg">
