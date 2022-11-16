@@ -17,7 +17,7 @@
   <script type="module" src="/public/js/index.js"></script>
 </head>
 
-<body style="overflow: hidden;">
+<body>
   <div class="container">
     <?php include 'public/views/components/topBar.php' ?>
 

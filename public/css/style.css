@@ -68,6 +68,8 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: top;
+
+    position: relative;
 }
 
 .top-bar {
@@ -294,7 +296,7 @@ a {
     width: 100%;
     margin-top: 90px;
 
-    height: 190%;
+    height: calc(100% - 90px);
 
     z-index: -1;
     background-image: url('../img/background04.webp');
