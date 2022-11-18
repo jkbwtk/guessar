@@ -20,8 +20,6 @@ export class NavBar {
   private children: NavChild[];
   private lastDisabled: number;
 
-  private menuTimeoutHandler: number | null = null;
-
   constructor() {
     const node = document.getElementById('navBar');
     const menu = document.getElementById('navMenu');
@@ -111,12 +109,12 @@ export class NavBar {
   private onDesktopBurgerClick = (event: MouseEvent) => {
     if (!(event.target instanceof Element)) return;
 
-    if (!this.menu.classList.contains('hidden') && !this.menu.contains(event.target) && !this.burger.contains(event.target)) {
+    if (!this.menu.classList.contains('nav-menu-hidden') && !this.menu.contains(event.target) && !this.burger.contains(event.target)) {
       this.hideMenu();
     }
 
     if (this.burger.contains(event.target)) {
-      if (!this.menu.classList.contains('hidden')) {
+      if (!this.menu.classList.contains('nav-menu-hidden')) {
         this.hideMenu();
       } else {
         this.showMenu();
@@ -165,13 +163,7 @@ export class NavBar {
   }
 
   private showMenu() {
-    if (this.menuTimeoutHandler !== null) {
-      window.clearTimeout(this.menuTimeoutHandler);
-      this.menuTimeoutHandler = null;
-    }
-
-    this.menu.style.opacity = '1';
-    this.menu.classList.remove('hidden');
+    this.menu.classList.remove('nav-menu-hidden');
 
     const burgerRect = this.burger.getBoundingClientRect();
     const menuRect = this.menu.getBoundingClientRect();
@@ -183,15 +175,7 @@ export class NavBar {
   }
 
   private hideMenu(): void {
-    const trainsitionDuration = parseFloat(window.getComputedStyle(this.menu).transitionDuration ?? '0');
-
-    this.menu.style.opacity = '0';
-
-    this.menuTimeoutHandler = window.setTimeout(() => {
-      this.menu.classList.add('hidden');
-      this.menu.style.left = '0px';
-      this.menu.style.top = '0px';
-    }, trainsitionDuration * 1000);
+    this.menu.classList.add('nav-menu-hidden');
   }
 
   private highlightActiveLink() {

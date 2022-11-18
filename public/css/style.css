@@ -203,7 +203,6 @@ body {
 
 .nav-menu {
     position: absolute;
-    opacity: 0;
 
     display: flex;
     flex-direction: column;
@@ -213,13 +212,56 @@ body {
     padding: 10px;
     margin-top: 10px;
 
+    left: -100%;
+
     background-color: var(--app-aux-color);
     border-radius: 5px;
     box-shadow: 0px 0px 20px 0px #21395E80;
 
-    z-index: 100;
+    animation-name: nav-menu-fade-in;
+    animation-fill-mode: forwards;
+    animation-duration: 0.25s;
 
-    transition: opacity 0.25s;
+
+    z-index: 100;
+}
+
+.nav-menu-hidden {
+    animation-name: nav-menu-fade-out;
+}
+
+@keyframes nav-menu-fade-in {
+    from {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    1% {
+        opacity: 0;
+        visibility: visible;
+    }
+
+    to {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+@keyframes nav-menu-fade-out {
+    from {
+        opacity: 1;
+    }
+
+    99% {
+        opacity: 0;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-10000%);
+    }
 }
 
 .nav-menu-mobile {
