@@ -17,7 +17,7 @@
     <img class="nav-link" id="navBurger" src="/public/img/burger.svg"></img>
   </nav>
 
-  <div class="nav-menu hidden" id="navMenu">
+  <div class="nav-menu nav-menu-hidden" id="navMenu">
     <a class="nav-link">Privacy</a>
     <a class="nav-link">Github</a>
   </div>

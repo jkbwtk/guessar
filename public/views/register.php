@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guessar - Login</title>
+  <title>Guessar - Register</title>
 
   <link rel="preload" href="public/fonts/SquarishSansCTRegular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
   <link rel="preload" href="public/img/logo.svg" as="image">
