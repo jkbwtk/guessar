@@ -12,6 +12,7 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --app-bg-color: #101010;
+        --app-bg-color-transparent: #10101080;
 
         --app-font-color: #FFFFFF;
         --app-button-font-color: #FFFFFF;
@@ -25,6 +26,7 @@
 @media (prefers-color-scheme: light) {
     :root {
         --app-bg-color: #FFFFFF;
+        --app-bg-color-transparent: #FFFFFF80;
 
         --app-font-color: #101010;
         --app-button-font-color: #FFFFFF;
@@ -73,6 +75,9 @@ body {
 }
 
 .top-bar {
+    position: sticky;
+    top: 0;
+
     width: 100%;
     height: fit-content;
     box-sizing: border-box;
@@ -83,12 +88,19 @@ body {
     flex-direction: row;
     align-items: center;
 
+    backdrop-filter: blur(10px);
+    background-color: var(--app-bg-color-transparent);
+
     justify-content: space-between;
+
+    z-index: 100;
 }
 
 .branding {
     cursor: pointer;
     text-decoration: none;
+
+    height: 40px;
 }
 
 .logo {
@@ -100,14 +112,47 @@ body {
     display: none;
 }
 
-@media screen and (max-width: 720px) {
-    .logo {
-        display: none;
-    }
+.nav-burger-mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    .icon {
-        display: initial;
-    }
+    z-index: 101;
+
+    transition: transform 0.25s ease-in-out;
+
+
+    width: 40px;
+}
+
+.nav-burger-mobile.button-small {
+    transition: transform 0.25s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.nav-burger-mobile>img {
+    height: 20px;
+}
+
+.nav-burger-mobile-active {
+    transform: rotate(90deg);
+}
+
+.top-avatar-mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 40px;
+
+    box-shadow: 0 0 20px 0 #ffffff80 !important;
+}
+
+.top-avatar-mobile:hover {
+    box-shadow: 0 0 20px 0 #ffffff !important;
+}
+
+.top-avatar-mobile>img {
+    height: 40px;
 }
 
 .nav-bar {
@@ -172,7 +217,57 @@ body {
     border-radius: 5px;
     box-shadow: 0px 0px 20px 0px #21395E80;
 
+    z-index: 100;
+
     transition: opacity 0.25s;
+}
+
+.nav-menu-mobile {
+    position: absolute;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    gap: 20px;
+
+    top: 0;
+    left: -100%;
+
+    width: 100vw;
+    height: 100vh;
+
+    padding-top: 100px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+
+    background-color: var(--app-bg-color);
+    /* background-color: var(--app-aux-color-transparent); */
+    /* backdrop-filter: blur(100vmax); */
+
+    z-index: 100;
+
+    transition: left 0.25s ease-in-out;
+
+    transform: translateZ(1px);
+}
+
+.nav-link-mobile {
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+
+    margin: 0px;
+
+    font-size: 32px;
+}
+
+.nav-menu-mobile-extended {
+    left: 0;
 }
 
 .auth-group {
@@ -275,6 +370,8 @@ a {
 
     margin-top: 130px;
     margin-bottom: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
 
     text-align: center;
     letter-spacing: -0.075em;
@@ -285,6 +382,9 @@ a {
 
     margin-top: 0px;
     margin-bottom: 135px;
+    margin-left: 20px;
+    margin-right: 20px;
+
     text-align: center;
 
     color: var(--app-aux-font-color);
@@ -336,4 +436,60 @@ a {
     background-position: center right;
     background-repeat: no-repeat;
     background-size: contain;
+}
+
+@media screen and (max-width: 720px) and (min-width: 601px) {
+    .logo {
+        display: none;
+    }
+
+    .icon {
+        display: initial;
+    }
+}
+
+@media screen and (max-width: 890px) {
+    #topRegister {
+        display: none;
+    }
+
+    .auth-group {
+        gap: 0px;
+    }
+}
+
+@media screen and (min-width: 601px) {
+    .top-mobile {
+        display: none;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .top-desktop {
+        display: none;
+    }
+
+    .top-bar {
+        justify-content: space-between;
+    }
+
+    .text-logo {
+        font-size: 56px;
+        margin-top: 100px;
+    }
+
+    .catchphrase {
+        font-size: 24px;
+        margin-bottom: 100px;
+    }
+
+    .background04 {
+        margin-left: 20px;
+        margin-right: 20px;
+
+        width: calc(100% - 40px);
+
+        background-size: contain;
+        background-position: center;
+    }
 }

@@ -14,6 +14,9 @@ export class NavBar {
   private menu: HTMLElement;
   private burger: HTMLElement;
 
+  private mobileMenu: HTMLElement;
+  private mobileBurger: HTMLElement;
+
   private children: NavChild[];
   private lastDisabled: number;
 
@@ -23,6 +26,9 @@ export class NavBar {
     const node = document.getElementById('navBar');
     const menu = document.getElementById('navMenu');
     const burger = document.getElementById('navBurger');
+    const mobileMenu = document.getElementById('navMenuMobile');
+    const mobileBurger = document.getElementById('navBurgerMobile');
+
 
     if (node === null) {
       throw new Error('NavBar: Could not find navBar');
@@ -36,9 +42,19 @@ export class NavBar {
       throw new Error('NavBar: Could not find navBurger');
     }
 
+    if (mobileMenu === null) {
+      throw new Error('NavBar: Could not find navMenuMobile');
+    }
+
+    if (mobileBurger === null) {
+      throw new Error('NavBar: Could not find navBurgerMobile');
+    }
+
     this.node = node;
     this.menu = menu;
     this.burger = burger;
+    this.mobileMenu = mobileMenu;
+    this.mobileBurger = mobileBurger;
 
     this.children = [];
     this.lastDisabled = -1;
@@ -60,6 +76,7 @@ export class NavBar {
 
   private onLoad = () => {
     this.indexChildren();
+    this.highlightActiveLink();
     this.onResize();
   };
 
@@ -87,6 +104,11 @@ export class NavBar {
   };
 
   private onClick = (event: MouseEvent) => {
+    this.onDesktopBurgerClick(event);
+    this.onMobileBurgerClick(event);
+  };
+
+  private onDesktopBurgerClick = (event: MouseEvent) => {
     if (!(event.target instanceof Element)) return;
 
     if (!this.menu.classList.contains('hidden') && !this.menu.contains(event.target) && !this.burger.contains(event.target)) {
@@ -102,8 +124,20 @@ export class NavBar {
     }
   };
 
+  private onMobileBurgerClick = (event: MouseEvent) => {
+    if (!(event.target instanceof Element)) return;
+
+    if (this.mobileBurger.contains(event.target)) {
+      this.mobileMenu.classList.toggle('nav-menu-mobile-extended');
+      this.mobileBurger.classList.toggle('nav-burger-mobile-active');
+    }
+  };
+
   private indexChildren() {
     this.children = [];
+
+    // dirty fix for mobile view
+    this.node.classList.remove('top-desktop');
 
     for (const [child, i] of enumerate(Array.from(this.node.children))) {
       if (child.id !== 'navBurger') {
@@ -118,6 +152,8 @@ export class NavBar {
         });
       }
     }
+
+    this.node.classList.add('top-desktop');
   }
 
   private showChild(index: number) {
@@ -154,6 +190,17 @@ export class NavBar {
     this.menuTimeoutHandler = window.setTimeout(() => {
       this.menu.classList.add('hidden');
     }, trainsitionDuration * 1000);
+  }
+
+  private highlightActiveLink() {
+    const links = document.querySelectorAll('.nav-link');
+    const path = window.location.pathname;
+
+    links.forEach((link) => {
+      if ((link instanceof HTMLAnchorElement) && link.pathname === path) {
+        link.classList.add('nav-link-active');
+      }
+    });
   }
 
   public dispose(): void {
