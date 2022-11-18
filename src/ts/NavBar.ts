@@ -189,6 +189,8 @@ export class NavBar {
 
     this.menuTimeoutHandler = window.setTimeout(() => {
       this.menu.classList.add('hidden');
+      this.menu.style.left = '0px';
+      this.menu.style.top = '0px';
     }, trainsitionDuration * 1000);
   }
 
