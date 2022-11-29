@@ -1,6 +1,10 @@
 # vanilla js
 public/js
 
+# generated resources
+public/img/panoramas
+public/img/tiles
+
 # Logs
 logs
 *.log

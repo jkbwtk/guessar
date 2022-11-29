@@ -7,6 +7,7 @@ GTA:SA geo guessing website
 ## Requirements
 - Node.js
 - Docker
+- Python
 
 ## Setup
 1. Install npm dependencies
@@ -14,12 +15,22 @@ GTA:SA geo guessing website
 npm ci
 ```
 
-2. Transpile typescript to javascript
+2. Install python dependencies
+```bash
+pip install -r requirements.txt
+```
+
+3. Transpile typescript to javascript
 ```bash
 npm run build
 ```
 
-3. Start docker containers
+4. Generate public resources
+```bash
+python tools/panoramaOptimizer.py
+```
+
+5. Start docker containers
 ```bash
 docker compose up
 ```
