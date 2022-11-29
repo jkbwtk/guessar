@@ -1,5 +1,5 @@
 import { build } from 'esbuild';
-import { readdirSync } from 'fs';
+import { Dirent, readdirSync } from 'fs';
 import { join } from 'path';
 
 
@@ -11,13 +11,19 @@ const excludedFiles = [
   /^utils.ts$/,
 ];
 
+/**
+ * @param {Dirent} file
+ * @return {boolean}
+ */
 const entryPointFilter = (file) => {
-  return !excludedFiles.some((regex) => regex.test(file));
+  if (!file.isFile()) return false;
+
+  return !excludedFiles.some((regex) => regex.test(file.name));
 };
 
-const entryPoints = readdirSync(srcdir)
+const entryPoints = readdirSync(srcdir, { withFileTypes: true })
   .filter(entryPointFilter)
-  .map((file) => join(srcdir, file));
+  .map((file) => join(srcdir, file.name));
 
 build({
   logLevel: 'info',
@@ -27,6 +33,10 @@ build({
   target: [
     'ES2015',
   ],
+
+  loader: {
+    '.glsl': 'text',
+  },
 
   watch: watchMode,
   incremental: watchMode,
