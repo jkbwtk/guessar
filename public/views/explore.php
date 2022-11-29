@@ -18,7 +18,7 @@
 
 <body style="overflow: hidden;">
   <div class="container">
-    <canvas id="canvas" />
+    <canvas id="canvas"></canvas>
   </div>
 </body>
 
