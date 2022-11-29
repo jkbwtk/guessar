@@ -14,4 +14,8 @@ class DefaultController extends AppController {
     public function register() {
         $this->render('register');
     }
+
+    public function explore() {
+        $this->render('explore');
+    }
 }

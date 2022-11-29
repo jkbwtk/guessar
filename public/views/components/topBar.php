@@ -12,7 +12,7 @@
     <a href="/" class="nav-link">Home</a>
     <a class="nav-link">Gamemodes</a>
     <a class="nav-link">Leaderboard</a>
-    <a class="nav-link">Explore</a>
+    <a href="/explore" class="nav-link">Explore</a>
     <a class="nav-link">About</a>
     <img class="nav-link" id="navBurger" src="/public/img/burger.svg"></img>
   </nav>
@@ -26,7 +26,7 @@
     <a href="/" class="nav-link nav-link-mobile">Home</a>
     <a class=" nav-link nav-link-mobile">Gamemodes</a>
     <a class="nav-link nav-link-mobile">Leaderboard</a>
-    <a class="nav-link nav-link-mobile">Explore</a>
+    <a href="/explore" class="nav-link nav-link-mobile">Explore</a>
     <a class="nav-link nav-link-mobile">About</a>
     <a class="nav-link nav-link-mobile">Privacy</a>
     <a class="nav-link nav-link-mobile">Github</a>
