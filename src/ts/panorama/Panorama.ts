@@ -20,12 +20,14 @@ declare interface Panorama {
   on(event: 'rotation', listener: (rotation: Spherical) => void): this;
   on(event: 'zoom', listener: (fov: number) => void): this;
   on(event: 'animationFinished', listener: () => void): this;
+  on(event: 'frame', listener: (frametime: number) => void): this;
 
   emit(event: 'viewReady'): boolean;
   emit(event: 'viewChange', view: VerboseCoordinates): boolean;
   emit(event: 'rotation', rotation: Spherical): boolean;
   emit(event: 'zoom', fov: number): boolean;
   emit(event: 'animationFinished'): boolean;
+  emit(event: 'frame', frametime: number): boolean;
 }
 
 class Panorama extends EventEmitter {
@@ -41,7 +43,7 @@ class Panorama extends EventEmitter {
   private ctx: WebGL2RenderingContext;
 
   private camera: Camera;
-  private controls: PanoramaControls;
+  public controls: PanoramaControls;
 
   private program: WebGLProgram;
   private viewLocation: WebGLUniformLocation;
@@ -139,7 +141,10 @@ class Panorama extends EventEmitter {
     this.camera.updateViewMatrix();
 
     const updates = this.processControls(timestamp);
-    if (updates.size > 0) this.redraw(timestamp);
+    if (updates.size > 0) {
+      this.emit('frame', this.frametime);
+      this.redraw(timestamp);
+    }
 
     requestAnimationFrame(this.update);
   };
@@ -279,7 +284,7 @@ class Panorama extends EventEmitter {
       this.ctx.texParameteri(this.ctx.TEXTURE_CUBE_MAP, this.ctx.TEXTURE_WRAP_S, this.ctx.CLAMP_TO_EDGE);
       this.ctx.texParameteri(this.ctx.TEXTURE_CUBE_MAP, this.ctx.TEXTURE_WRAP_T, this.ctx.CLAMP_TO_EDGE);
       this.ctx.texParameteri(this.ctx.TEXTURE_CUBE_MAP, this.ctx.TEXTURE_MIN_FILTER, this.ctx.LINEAR);
-      this.ctx.texParameteri(this.ctx.TEXTURE_CUBE_MAP, this.ctx.TEXTURE_MAG_FILTER, this.ctx.NEAREST);
+      // this.ctx.texParameteri(this.ctx.TEXTURE_CUBE_MAP, this.ctx.TEXTURE_MAG_FILTER, this.ctx.NEAREST);
     }
   }
 
@@ -304,6 +309,8 @@ class Panorama extends EventEmitter {
 
     this.redraw(0);
     if (this.options.fade) this.unblur();
+
+    this.emit('viewReady');
   }
 
   private blur(): void {
