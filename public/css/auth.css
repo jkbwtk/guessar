@@ -106,9 +106,7 @@
 
     top: 50%;
     transform: translateY(-50%);
-}
 
-.login-show-password:hover {
     cursor: pointer;
 }
 
@@ -195,9 +193,10 @@
     margin-left: 5px;
     display: flex;
     align-items: center;
+
+    cursor: pointer;
 }
 
 .login-option>a:hover {
     text-decoration: underline;
-    cursor: pointer;
 }
