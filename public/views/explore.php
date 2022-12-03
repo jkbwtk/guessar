@@ -17,8 +17,7 @@
 </head>
 
 <body style="overflow: hidden;">
-  <div class="container">
-    <canvas id="canvas"></canvas>
+  <div class="explore-container container" id="explore-container">
   </div>
 </body>
 

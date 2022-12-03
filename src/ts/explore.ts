@@ -1,21 +1,8 @@
-import { Panorama } from './panorama/Panorama';
-import { GetRandomCoordinates } from './types/panorama';
+import { PanoramaViewer } from './panorama/PanoramaViewer';
 
-const canvas = document.getElementById('canvas') as HTMLCanvasElement;
+const container = document.getElementById('explore-container');
+if (container === null) {
+  throw new Error('Could not find container element');
+}
 
-const panorama = new Panorama(canvas);
-panorama.resizeViewer();
-
-panorama.changePanorama({
-  data: {
-    target: {
-      uuid: '768bac1a-e70d-4e92-8824-334b340cb42d',
-      position: {
-        x: 0,
-        y: 0,
-        z: 0,
-        r: 0,
-      },
-    },
-  },
-} as GetRandomCoordinates);
+const viewer = new PanoramaViewer(container);

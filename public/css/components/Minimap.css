@@ -1,0 +1,176 @@
+.minimap-container {
+  display: flex;
+  width: fit-content;
+
+  --minimap-animation-duration: 0.2s;
+}
+
+.minimap-container[active='false'] .minimap-resize-button {
+  display: none;
+}
+
+.minimap-container[active='false'] .minimap-map {
+  opacity: 0.5;
+
+  transition-duration: var(--minimap-animation-duration);
+  transition-property: width, height, opacity;
+}
+
+.minimap-container[active='true'] .minimap-map {
+  opacity: 1;
+
+  transition-duration: var(--minimap-animation-duration);
+  transition-property: width, height, opacity;
+}
+
+.minimap-container[active='true'] .minimap-resize-button {
+  display: initial;
+}
+
+.minimap-resize-button {
+  width: 3.2rem;
+  height: 3.2rem;
+
+  background-color: #000000a8;
+  border-radius: 1.6em;
+  box-shadow: 0px 0px 0.4rem #000000a8;
+
+  pointer-events: initial;
+  cursor: all-scroll;
+  border: none;
+
+}
+
+.minimap-resize-button>img {
+  width: 100%;
+  height: 100%;
+
+  box-sizing: border-box;
+
+  padding: 0.5rem;
+
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.minimap-resize-button:hover>img {
+  opacity: 1;
+}
+
+.minimap-scalable-container {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 3.2rem;
+}
+
+.minimap-map {
+  /* background-color: #000000a8 !important; */
+  background-color: #6e88aa !important;
+  border-radius: 1.6rem;
+  box-shadow: 0px 0px 0.4rem #6e88aa88;
+
+  /* pointer-events: all; */
+
+  font-family: Jetbrains Mono;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  vertical-align: middle;
+
+  pointer-events: initial;
+}
+
+.minimap-map[resized='true'] {
+  transition: none !important;
+}
+
+.minimap-map-max {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-color: #6e88aa !important;
+
+  box-sizing: border-box;
+
+  display: flex;
+  padding: 1.6rem;
+
+  flex-direction: column;
+}
+
+.minimap-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.8rem;
+  gap: 0.8rem;
+}
+
+.minimap-button {
+  font-family: inherit;
+
+  border-radius: 1.6rem;
+  background-color: #000000a8;
+  box-shadow: 0px 0px 0.4rem #000000a8;
+
+  height: 4rem;
+  font-size: 2rem;
+  pointer-events: initial;
+
+  cursor: pointer;
+  border: none;
+}
+
+.minimap-return>img {
+  width: inherit;
+  height: inherit;
+
+  box-sizing: border-box;
+
+  padding: 0.8rem;
+
+  opacity: 0.7;
+  transition: opacity 0.3s;
+
+  filter: invert(1);
+}
+
+.minimap-return:hover>img {
+  opacity: 1;
+}
+
+.minimap-return:active>img {
+  filter: drop-shadow(0 0 0.2rem #ffffffff), invert(1);
+}
+
+.minimap-confirm {
+  flex-grow: 1;
+  background-color: var(--app-acc-color);
+  box-shadow: 0px 0px 2rem rgba(235, 102, 69, 0.5);
+}
+
+.leaflet-control-zoom {
+  border: none !important;
+  border-radius: 1.6rem !important;
+  background-color: #000000a8 !important;
+
+  box-shadow: 0px 0px 0.4rem #000000a8 !important;
+}
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  background: none !important;
+  border: none !important;
+
+  color: var(--app-font-color) !important;
+}
+
+.leaflet-bar a.leaflet-disabled {
+  opacity: 0.5 !important;
+}

@@ -39,7 +39,7 @@ class Panorama extends EventEmitter {
 
   private options: PanoramaOptions;
 
-  private canvas: HTMLCanvasElement;
+  public canvas: HTMLCanvasElement;
   private ctx: WebGL2RenderingContext;
 
   private camera: Camera;
@@ -56,14 +56,14 @@ class Panorama extends EventEmitter {
   private lastTimestamp = 0;
   private firstLoad = true;
 
-  constructor(canvas: HTMLCanvasElement, options?: Partial<PanoramaOptions>) {
+  constructor(options?: Partial<PanoramaOptions>) {
     super();
 
     this.options = Object.assign(Panorama.defaultOptions, options);
 
-    this.canvas = canvas;
+    this.canvas = document.createElement('canvas');
     this.canvas.classList.add('panorama-canvas');
-    const ctx = canvas.getContext('webgl2');
+    const ctx = this.canvas.getContext('webgl2');
     if (ctx === null) throw new Error('WebGL2 not supported');
     this.ctx = ctx;
 

@@ -69,8 +69,8 @@ export class PanoramaControls {
 
     this.lastUpdates = new Set();
 
-    if (this.controller.parentElement === null) throw new Error('Controller parent element is null');
-    const controllerRect = this.controller.parentElement.getBoundingClientRect();
+    // if (this.controller.parentElement === null) throw new Error('Controller parent element is null');
+    const controllerRect = this.controller.getBoundingClientRect();
     this.controllerWidth = controllerRect.width;
     this.controllerHeight = controllerRect.height;
 
