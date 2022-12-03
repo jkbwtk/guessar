@@ -41,7 +41,7 @@
     --app-font-family: 'Squarish Sans CT Regular', Sans-Serif;
 
     font-family: var(--app-font-family);
-    font-size: 16px;
+    font-size: 10px;
     font-weight: 400;
 
     color-scheme: dark;
@@ -82,7 +82,7 @@ body {
     height: fit-content;
     box-sizing: border-box;
 
-    padding: 30px;
+    padding: 3rem;
 
     display: flex;
     flex-direction: row;
@@ -100,15 +100,15 @@ body {
     cursor: pointer;
     text-decoration: none;
 
-    height: 40px;
+    height: 4rem;
 }
 
 .logo {
-    height: 40px;
+    height: 4rem;
 }
 
 .icon {
-    height: 40px;
+    height: 4rem;
     display: none;
 }
 
@@ -122,7 +122,7 @@ body {
     transition: transform 0.25s ease-in-out;
 
 
-    width: 40px;
+    width: 4rem;
 }
 
 .nav-burger-mobile.button-small {
@@ -130,7 +130,7 @@ body {
 }
 
 .nav-burger-mobile>img {
-    height: 20px;
+    height: 2rem;
 }
 
 .nav-burger-mobile-active {
@@ -142,17 +142,17 @@ body {
     justify-content: center;
     align-items: center;
 
-    width: 40px;
+    width: 4rem;
 
-    box-shadow: 0 0 20px 0 #ffffff80 !important;
+    box-shadow: 0 0 2rem 0 #ffffff80 !important;
 }
 
 .top-avatar-mobile:hover {
-    box-shadow: 0 0 20px 0 #ffffff !important;
+    box-shadow: 0 0 2rem 0 #ffffff !important;
 }
 
 .top-avatar-mobile>img {
-    height: 40px;
+    height: 4rem;
 }
 
 .nav-bar {
@@ -163,23 +163,23 @@ body {
     align-items: center;
     justify-content: stretch;
 
-    margin-left: 30px;
+    margin-left: 3rem;
     /* margin-left: auto; */
     margin-right: auto;
 
-    gap: 30px;
+    gap: 3rem;
 }
 
 .nav-link {
-    font-size: 24px;
+    font-size: 2.4rem;
     color: var(--app-font-color);
     text-decoration: none;
     user-select: none;
 
     height: inherit;
 
-    margin-top: 2px;
-    margin-bottom: 3px;
+    margin-top: 0.2rem;
+    margin-bottom: 0.3rem;
     box-sizing: border-box;
 
     transition: border-bottom 0.2s ease-in-out;
@@ -192,11 +192,11 @@ body {
 }
 
 .nav-link-active {
-    border-bottom: 2px solid var(--app-font-color);
+    border-bottom: 0.2rem solid var(--app-font-color);
 }
 
 #navBurger {
-    height: 25px;
+    height: 2.5rem;
 }
 
 .nav-menu {
@@ -207,14 +207,14 @@ body {
     align-items: center;
     justify-content: center;
 
-    padding: 10px;
-    margin-top: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
 
     left: -100%;
 
     background-color: var(--app-aux-color);
-    border-radius: 5px;
-    box-shadow: 0px 0px 20px 0px #21395E80;
+    border-radius: 0.5rem;
+    box-shadow: 0px 0px 2rem 0px #21395E80;
 
     animation-name: nav-menu-fade-in;
     animation-fill-mode: forwards;
@@ -271,7 +271,7 @@ body {
     align-items: flex-start;
     justify-content: flex-start;
 
-    gap: 20px;
+    gap: 2rem;
 
     top: 0;
     left: -100%;
@@ -279,10 +279,10 @@ body {
     width: 100vw;
     height: 100vh;
 
-    padding-top: 100px;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-bottom: 30px;
+    padding-top: 10rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-bottom: 3rem;
 
     background-color: var(--app-bg-color);
     /* background-color: var(--app-aux-color-transparent); */
@@ -296,14 +296,14 @@ body {
 }
 
 .nav-link-mobile {
-    height: 40px;
+    height: 4rem;
 
     display: flex;
     align-items: center;
 
     margin: 0px;
 
-    font-size: 32px;
+    font-size: 3.2rem;
 }
 
 .nav-menu-mobile-extended {
@@ -317,7 +317,7 @@ body {
     flex-direction: row;
     align-items: center;
 
-    gap: 30px;
+    gap: 3rem;
 }
 
 button {
@@ -332,19 +332,19 @@ a {
 }
 
 .button-small {
-    height: 40px;
-    font-size: 24px;
+    height: 4rem;
+    font-size: 2.4rem;
     text-transform: uppercase;
 
     background-color: var(--app-acc-color);
 
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
 
     border: none;
-    border-radius: 20px;
+    border-radius: 2rem;
 
-    box-shadow: 0px 0px 20px 0px #eb664580;
+    box-shadow: 0px 0px 2rem 0px #eb664580;
 
     transition: box-shadow 0.2s ease-in-out;
 
@@ -352,51 +352,51 @@ a {
 }
 
 .button-small:hover {
-    box-shadow: 0px 0px 20px 0px #eb6645;
+    box-shadow: 0px 0px 2rem 0px #eb6645;
 }
 
 .button-big {
-    height: 57px;
+    height: 5.7rem;
     width: fit-content;
-    font-size: 32px;
+    font-size: 3.2rem;
     text-transform: uppercase;
 
     background-color: var(--app-acc-color);
 
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 
     border: none;
-    border-radius: 30px;
+    border-radius: 3rem;
 
-    margin: 10px;
+    margin: 1rem;
 
-    box-shadow: 0px 0px 20px 0px #eb664580;
+    box-shadow: 0px 0px 2rem 0px #eb664580;
 
     transition: box-shadow 0.2s ease-in-out;
 }
 
 .button-big:hover {
     cursor: pointer;
-    box-shadow: 0px 0px 20px 0px #eb6645;
+    box-shadow: 0px 0px 2rem 0px #eb6645;
 }
 
 .button-aux {
-    height: 45px;
-    font-size: 24px;
+    height: 4.5rem;
+    font-size: 2.4rem;
     text-transform: uppercase;
 
     background-color: var(--app-aux-color);
 
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
 
     border: none;
-    border-radius: 20px;
+    border-radius: 2rem;
 
-    margin: 10px;
+    margin: 1rem;
 
-    box-shadow: 0px 0px 20px 0px #21395E80;
+    box-shadow: 0px 0px 2rem 0px #21395E80;
 
     transition: box-shadow 0.2s ease-in-out;
 
@@ -404,28 +404,28 @@ a {
 }
 
 .button-aux:hover {
-    box-shadow: 0px 0px 20px 0px #21395E;
+    box-shadow: 0px 0px 2rem 0px #21395E;
 }
 
 .text-logo {
-    font-size: 96px;
+    font-size: 9.6rem;
 
-    margin-top: 130px;
-    margin-bottom: 5px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-top: 13rem;
+    margin-bottom: 0.5rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
 
     text-align: center;
     letter-spacing: -0.075em;
 }
 
 .catchphrase {
-    font-size: 32px;
+    font-size: 3.2rem;
 
     margin-top: 0px;
-    margin-bottom: 135px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-bottom: 13.5rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
 
     text-align: center;
 
@@ -436,9 +436,9 @@ a {
     position: absolute;
 
     width: 100%;
-    margin-top: 90px;
+    margin-top: 9rem;
 
-    height: calc(100% - 90px);
+    height: calc(100% - 9rem);
 
     z-index: -1;
     background-image: url('../img/background04_lq.webp');
@@ -451,9 +451,9 @@ a {
 
     right: 10%;
 
-    margin-top: 110px;
-    margin-bottom: 110px;
-    height: calc(100vh - 220px);
+    margin-top: 11rem;
+    margin-bottom: 11rem;
+    height: calc(100vh - 22rem);
     width: calc(100vw - 20%);
 
     z-index: -1;
@@ -468,9 +468,9 @@ a {
 
     right: 10%;
 
-    margin-top: 110px;
-    margin-bottom: 110px;
-    height: calc(100vh - 220px);
+    margin-top: 11rem;
+    margin-bottom: 11rem;
+    height: calc(100vh - 22rem);
     width: calc(100vw - 20%);
 
     z-index: -1;
@@ -516,20 +516,20 @@ a {
     }
 
     .text-logo {
-        font-size: 56px;
-        margin-top: 100px;
+        font-size: 5.6rem;
+        margin-top: 10rem;
     }
 
     .catchphrase {
-        font-size: 24px;
-        margin-bottom: 100px;
+        font-size: 2.4rem;
+        margin-bottom: 10rem;
     }
 
     .background04 {
-        margin-left: 20px;
-        margin-right: 20px;
+        margin-left: 2rem;
+        margin-right: 2rem;
 
-        width: calc(100% - 40px);
+        width: calc(100% - 4rem);
 
         background-size: contain;
         background-position: center;
