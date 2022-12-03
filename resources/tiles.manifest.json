@@ -2,14 +2,14 @@
   "tasks": [
     {
       "source": "resources/gta-sa-vector-map.svg",
-      "outDir": "/public/img/tiles/vector",
+      "outDir": "./public/img/tiles/vector",
       "width": 16384,
       "height": 16384,
       "tileSize": 256
     },
     {
       "source": "resources/satelite-map.jpg",
-      "outDir": "/public/img/tiles/satelite",
+      "outDir": "./public/img/tiles/satelite",
       "width": 6000,
       "height": 6000,
       "tileSize": 256

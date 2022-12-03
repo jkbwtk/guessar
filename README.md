@@ -28,6 +28,7 @@ npm run build
 4. Generate public resources
 ```bash
 python tools/panoramaOptimizer.py
+python tools/tileGenerator.py
 ```
 
 5. Start docker containers
