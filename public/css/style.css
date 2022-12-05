@@ -1,7 +1,7 @@
 /* latin */
 @font-face {
     font-family: 'Squarish Sans CT Regular';
-    src: url('../fonts/SquarishSansCTRegular.woff2');
+    src: url('/public/fonts/SquarishSansCTRegular.woff2');
     /* src: url('../fonts/squarish_sans_ct_regular.ttf'); */
     /* src: url('https://raw.githubusercontent.com/opensourcedesign/fonts/96da5c8b6cdc1b91d2ee58efef3f0402f5a47217/squarishSans/Squarish%20Sans%20CT%20Regular.ttf'); */
     font-style: normal;
@@ -441,7 +441,7 @@ a {
     height: calc(100% - 9rem);
 
     z-index: -1;
-    background-image: url('../img/background04_lq.webp');
+    background-image: url('/public/img/background04_lq.webp');
     background-position: top center;
     background-repeat: no-repeat;
 }
@@ -457,7 +457,7 @@ a {
     width: calc(100vw - 20%);
 
     z-index: -1;
-    background-image: url('../img/background03_lq.webp');
+    background-image: url('/public/img/background03_lq.webp');
     background-position: center right;
     background-repeat: no-repeat;
     background-size: contain;
@@ -474,7 +474,7 @@ a {
     width: calc(100vw - 20%);
 
     z-index: -1;
-    background-image: url('../img/background01_lq.webp');
+    background-image: url('/public/img/background01_lq.webp');
     background-position: center right;
     background-repeat: no-repeat;
     background-size: contain;

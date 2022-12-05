@@ -1,6 +1,6 @@
 <div class="top-bar">
   <button class="button-small nav-burger-mobile top-mobile" id="navBurgerMobile">
-    <img src="public/img/burgerMobile.svg" alt="More" />
+    <img src="/public/img/burgerMobile.svg" alt="More" />
   </button>
 
   <a class="branding" href="/">
