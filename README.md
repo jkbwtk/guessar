@@ -31,7 +31,12 @@ python tools/panoramaOptimizer.py
 python tools/tileGenerator.py
 ```
 
-5. Start docker containers
+5. Generate database template
+```bash
+python tools/databaseGenerator.py
+```
+
+6. Start docker containers
 ```bash
 docker compose up
 ```
