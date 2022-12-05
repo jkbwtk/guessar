@@ -2,8 +2,14 @@
 public/js
 
 # generated resources
-public/img/panoramas
+public/img/panoramas*
 public/img/tiles
+docker/postgres/database.sql
+
+# python files
+__pycache__
+
+.idea/
 
 # Logs
 logs
