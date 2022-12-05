@@ -11,4 +11,6 @@ Router::get('login', 'DefaultController', 'login');
 Router::get('register', 'DefaultController', 'register');
 Router::get('explore', 'DefaultController', 'explore');
 
+ROUTER::get('api/v1/views/random', 'ViewController', 'getRandomView');
+
 Router::run($path);

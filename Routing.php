@@ -1,6 +1,7 @@
 <?php
 
 require_once 'src/php/controllers/DefaultController.php';
+require_once 'src/php/controllers/ViewController.php';
 require_once 'Route.php';
 
 class Router {

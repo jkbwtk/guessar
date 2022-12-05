@@ -99,19 +99,11 @@ export class PanoramaViewer extends Stylized {
     });
   }
 
-  private initPanorama() {
-    this.panorama.changePanorama({
-      data: {
-        target: {
-          uuid: '768bac1a-e70d-4e92-8824-334b340cb42d',
-          position: {
-            x: 0,
-            y: 0,
-            z: 0,
-            r: 0,
-          },
-        },
-      },
-    } as GetRandomCoordinates);
+  private async initPanorama() {
+    const view = await (await fetch('/api/v1/views/random')).json() as GetRandomCoordinates;
+
+    console.log(view);
+
+    this.panorama.changePanorama(view);
   }
 }
