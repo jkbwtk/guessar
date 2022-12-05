@@ -5,9 +5,10 @@ require 'Routing.php';
 $path = trim($_SERVER['REQUEST_URI'], '/');
 $path = parse_url($path, PHP_URL_PATH);
 
-Router::get('', 'DefaultController');
-Router::get('login', 'DefaultController');
-Router::get('register', 'DefaultController');
-Router::get('explore', 'DefaultController');
+
+Router::get('', 'DefaultController', 'index');
+Router::get('login', 'DefaultController', 'login');
+Router::get('register', 'DefaultController', 'register');
+Router::get('explore', 'DefaultController', 'explore');
 
 Router::run($path);

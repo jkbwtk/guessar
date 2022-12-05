@@ -1,24 +1,28 @@
 <?php
 
 require_once 'src/php/controllers/DefaultController.php';
+require_once 'Route.php';
 
 class Router {
-    public static $routes;
+    public static array $routes;
 
-    public static function get($url, $view) {
-        self::$routes[$url] = $view;
+    public static function get($path, $controller, $action) {
+        self::$routes[$path] = new Route($path, $controller, $action, RouteTypes::GET);
     }
 
-    public static function run($url) {
-        $action = explode("/", $url)[0];
-        if (!array_key_exists($action, self::$routes)) {
+    public static function post($path, $controller, $action) {
+        self::$routes[$path] = new Route($path, $controller, $action, RouteTypes::POST);
+    }
+
+    public static function run($path) {
+        if (!array_key_exists($path, self::$routes)) {
             return print(AppController::get404View());
         }
 
-        $controller = self::$routes[$action];
-        $object = new $controller;
-        $action = $action ?: 'index';
+        $controller = self::$routes[$path]->controller;
+        $action = self::$routes[$path]->action;
 
+        $object = new $controller;
         $object->$action();
     }
 }
