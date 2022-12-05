@@ -141,6 +141,9 @@ def populateViews(ctx: Context):
 
 
 def main():
+    if not os.path.exists('docker/postgres'):
+        os.makedirs('docker/postgres')
+
     ctx = Context(open('docker/postgres/database.sql', 'w', encoding='utf-8'))
 
     createTables(ctx)
