@@ -1,7 +1,15 @@
 import { build } from 'esbuild';
 import { Dirent, readdirSync } from 'fs';
 import { join } from 'path';
+import dotenv from 'dotenv';
 
+dotenv.config({
+  override: false,
+});
+
+
+const doSourcemap = process.env.ES_SOURCEMAP === 'true';
+const doMinify = process.env.ES_MINIFY !== 'false';
 
 const srcdir = './src/ts';
 const outdir = 'public/js';
@@ -28,10 +36,10 @@ const entryPoints = readdirSync(srcdir, { withFileTypes: true })
 build({
   logLevel: 'info',
   bundle: true,
-  minify: true,
-  sourcemap: false,
+  minify: doMinify,
+  sourcemap: doSourcemap,
   target: [
-    'ES2015',
+    'ES2020',
   ],
 
   loader: {
