@@ -126,6 +126,10 @@ export class Vector2 extends Float32Array implements Vector {
 
     return this;
   }
+
+  public angle(): number {
+    return Math.atan2(this.y, this.x);
+  }
 }
 
 export class Vector3 extends Float32Array implements Vector {

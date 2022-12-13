@@ -1,4 +1,4 @@
-import { GetRandomCoordinates, VerboseCoordinates } from '../types/panorama';
+import { GetView, VerboseCoordinates } from '../types/panorama';
 import { EventEmitter } from 'events';
 import { Camera } from './Camera';
 import { Spherical } from './MathUtils';
@@ -298,14 +298,14 @@ class Panorama extends EventEmitter {
     return [p, `${uuid}_${index}.webp`].join('/');
   }
 
-  public async changePanorama(panorama: GetRandomCoordinates): Promise<void> {
+  public async changePanorama(panorama: GetView): Promise<void> {
     const target = panorama.data.target;
     if (this.options.fade) this.blur();
 
-    await this.loadTexture(panorama.data.target.uuid);
-
     if (this.firstLoad) this.controls.setPhi(target.position.r);
     this.firstLoad = false;
+
+    await this.loadTexture(panorama.data.target.uuid);
 
     this.redraw(0);
     if (this.options.fade) this.unblur();
@@ -314,11 +314,11 @@ class Panorama extends EventEmitter {
   }
 
   private blur(): void {
-    this.ctx.canvas.classList.add('panorama-canvas-blur');
+    this.canvas.classList.add('panorama-canvas-blur');
   }
 
   private unblur(): void {
-    this.ctx.canvas.classList.remove('panorama-canvas-blur');
+    this.canvas.classList.remove('panorama-canvas-blur');
   }
 }
 

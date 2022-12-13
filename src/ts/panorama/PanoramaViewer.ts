@@ -1,10 +1,12 @@
 import { FpsCounter } from '../components/FpsCounter';
 import { Panorama } from './Panorama';
-import { GetRandomCoordinates } from '../types/panorama';
+import { GetView } from '../types/panorama';
 import { Stylized } from '../components/Stylized';
 import { CompassBar } from '../components/CompassBar';
 import { ZoomControls } from '../components/ZoomControls';
 import { Minimap } from '../components/Minimap';
+import { toRadians } from './MathUtils';
+import { ViewControls } from '../components/ViewControls';
 
 
 export class PanoramaViewer extends Stylized {
@@ -18,6 +20,7 @@ export class PanoramaViewer extends Stylized {
   private compass: CompassBar;
   private zoom: ZoomControls;
   private map: Minimap;
+  private arrows: ViewControls;
 
   constructor(container: HTMLElement) {
     super();
@@ -25,14 +28,14 @@ export class PanoramaViewer extends Stylized {
     this.container = container;
 
     this.panorama = new Panorama();
-    this.ui = this.createUI();
+    this.ui = this.createUi();
 
     this.container.appendChild(this.panorama.canvas);
     this.container.appendChild(this.ui);
 
     this.panorama.resizeViewer();
 
-    [this.counter, this.compass, this.zoom, this.map] = this.populateUi();
+    [this.counter, this.compass, this.zoom, this.map, this.arrows] = this.populateUi();
 
 
     this.initPanorama();
@@ -41,14 +44,14 @@ export class PanoramaViewer extends Stylized {
     this.injectStyles();
   }
 
-  private createUI(): HTMLDivElement {
+  private createUi(): HTMLDivElement {
     const ui = document.createElement('div');
     ui.classList.add('panorama-ui-container');
 
     return ui;
   }
 
-  private populateUi(): [FpsCounter, CompassBar, ZoomControls, Minimap] {
+  private populateUi(): [FpsCounter, CompassBar, ZoomControls, Minimap, ViewControls] {
     const topContainer = document.createElement('div');
     topContainer.classList.add('panorama-ui-top-container');
     this.ui.appendChild(topContainer);
@@ -77,7 +80,11 @@ export class PanoramaViewer extends Stylized {
     map.element.classList.add('panorama-ui-map');
     this.ui.appendChild(map.element);
 
-    return [counter, compass, zoom, map];
+    const arrows = new ViewControls();
+    arrows.element.classList.add('panorama-ui-arrows');
+    this.ui.appendChild(arrows.element);
+
+    return [counter, compass, zoom, map, arrows];
   }
 
   private registerEventHandlers() {
@@ -85,10 +92,12 @@ export class PanoramaViewer extends Stylized {
 
     this.panorama.on('rotation', (rotation) => {
       this.compass.setHeading(rotation.phi);
+      this.arrows.rotate(rotation, this.panorama.controls.fov);
     });
 
     this.panorama.on('zoom', (fov) => {
       this.zoom.setSliderValue(fov);
+      this.arrows.rotate(this.panorama.controls.spherical, fov);
     });
 
     this.zoom.zoomIn.addEventListener('click', () => this.panorama.controls.zoomIn());
@@ -97,13 +106,25 @@ export class PanoramaViewer extends Stylized {
     this.zoom.zoomSlider.addEventListener('input', () => {
       this.panorama.controls.fov = parseFloat(this.zoom.zoomSlider.value);
     });
+
+    this.arrows.on('viewChange', this.changePanorama);
   }
 
   private async initPanorama() {
-    const view = await (await fetch('/api/v1/views/random')).json() as GetRandomCoordinates;
+    await this.changePanoramaRandom();
+  }
 
-    console.log(view);
+  private changePanorama = async (uuid: string) => {
+    const view = await (await fetch(`/api/v1/views/view?uuid=${uuid}`)).json() as GetView;
 
     this.panorama.changePanorama(view);
-  }
+    this.arrows.drawArrows(view.data);
+  };
+
+  private changePanoramaRandom = async () => {
+    const view = await (await fetch('/api/v1/views/random')).json() as GetView;
+
+    this.panorama.changePanorama(view);
+    this.arrows.drawArrows(view.data);
+  };
 }

@@ -26,11 +26,13 @@ export interface VerboseCoordinates {
   neighbors: string[]
 }
 
-export interface GetRandomCoordinates {
-  data: {
-    target: VerboseCoordinates,
-    neighbors: VerboseCoordinates[],
-  }
+export interface View {
+  target: VerboseCoordinates,
+  neighbors: VerboseCoordinates[],
+}
+
+export interface GetView {
+  data: View
 }
 
 export interface GetVerboseCoordinates {
