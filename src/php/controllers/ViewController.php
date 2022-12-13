@@ -12,13 +12,49 @@ class ViewController extends AppController {
     $this->viewRepository = new ViewRepository();
   }
 
+  public function getView() {
+    header('Content-Type: application/json');
+
+    $this->enforceRequestMethod('isGet');
+
+    try {
+      if (!isset($_GET['uuid'])) {
+        throw new Exception('UUID is not set');
+      }
+
+      $uuid = $_GET['uuid'];
+      $exp = "/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/";
+
+      if (!preg_match($exp, $uuid)) {
+        throw new Exception('Invalid UUID', 2);
+      }
+
+      $view = $this->viewRepository->getView($_GET['uuid']);
+      if ($view == null) {
+        throw new Exception("View not found", 1);
+      }
+
+      $neighbors = $this->viewRepository->getNeighbors($view->getNeighbors(), 5);
+
+      $response = [
+        'data' => [
+          'target' => $view->toObject(),
+          'neighbors' => array_map(function ($neighbor) {
+            return $neighbor->toObject();
+          }, $neighbors)
+        ]
+      ];
+
+      return print(json_encode($response));
+    } catch (\Throwable $e) {
+      $this->throwGenericError();
+    }
+  }
+
   public function getRandomView() {
     header('Content-Type: application/json');
 
-    if (!$this->isGet()) {
-      http_response_code(405);
-      die(json_encode(['message' => 'Method not allowed']));
-    }
+    $this->enforceRequestMethod('isGet');
 
     try {
       $view = $this->viewRepository->getRandomView();
@@ -39,10 +75,7 @@ class ViewController extends AppController {
 
       return print(json_encode($response));
     } catch (\Throwable $th) {
-      http_response_code(500);
-      die(json_encode([
-        'error' => 'Internal server error'
-      ]));
+      $this->throwGenericError();
     }
   }
 }

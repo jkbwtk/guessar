@@ -5,67 +5,19 @@ require_once __DIR__ . '/../models/View.php';
 
 class ViewRepository extends Repository {
 
-  public function getProject(string $uuid): ?View {
+  public function getView(string $uuid): ?View {
     $stmt = $this->database->getConnection()->prepare('SELECT *, array_to_json("neighbors") as neighbors FROM "Views" WHERE uuid = :uuid');
     $stmt->bindParam(':uuid', $uuid, PDO::PARAM_STR);
     $stmt->execute();
 
-    $view = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($view == false) {
-      return null;
-    }
-
-    return new View(
-      $view['uuid'],
-      $view['position_x'],
-      $view['position_y'],
-      $view['position_z'],
-      $view['position_rad'],
-      $view['in_vehicle'],
-      $view['weather_region'],
-      $view['weather_old'],
-      $view['weather_new'],
-      $view['wavyness'],
-      $view['time_hours'],
-      $view['time_minutes'],
-      $view['quaternion_x'],
-      $view['quaternion_y'],
-      $view['quaternion_z'],
-      $view['quaternion_w'],
-      json_decode($view['neighbors'])
-    );
+    return $this->statementToView($stmt);
   }
 
   public function getRandomView(): ?View {
     $stmt = $this->database->getConnection()->prepare('SELECT *, array_to_json("neighbors") as neighbors FROM "Views" ORDER BY random() LIMIT 1');
     $stmt->execute();
 
-    $view = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($view == false) {
-      return null;
-    }
-
-    return new View(
-      $view['uuid'],
-      $view['position_x'],
-      $view['position_y'],
-      $view['position_z'],
-      $view['position_rad'],
-      $view['in_vehicle'],
-      $view['weather_region'],
-      $view['weather_old'],
-      $view['weather_new'],
-      $view['wavyness'],
-      $view['time_hours'],
-      $view['time_minutes'],
-      $view['quaternion_x'],
-      $view['quaternion_y'],
-      $view['quaternion_z'],
-      $view['quaternion_w'],
-      json_decode($view['neighbors'])
-    );
+    return $this->statementToView($stmt);
   }
 
   public function getNeighbors(array $neighbors, int $levels): array {
@@ -128,5 +80,33 @@ class ViewRepository extends Repository {
         }
       }
     }
+  }
+
+  private function statementToView(PDOStatement $stmt): ?View {
+    $view = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($view == false) {
+      return null;
+    }
+
+    return new View(
+      $view['uuid'],
+      $view['position_x'],
+      $view['position_y'],
+      $view['position_z'],
+      $view['position_rad'],
+      $view['in_vehicle'],
+      $view['weather_region'],
+      $view['weather_old'],
+      $view['weather_new'],
+      $view['wavyness'],
+      $view['time_hours'],
+      $view['time_minutes'],
+      $view['quaternion_x'],
+      $view['quaternion_y'],
+      $view['quaternion_z'],
+      $view['quaternion_w'],
+      json_decode($view['neighbors'])
+    );
   }
 }
