@@ -107,6 +107,14 @@ export class PanoramaViewer extends Stylized {
       this.arrows.rotate(this.panorama.controls.spherical, fov);
     });
 
+    this.panorama.on('animationFinished', () => {
+      const url = new URL(location.href);
+      url.searchParams.set('fov', this.panorama.controls.fov.toString());
+      url.searchParams.set('phi', this.panorama.controls.phi.toString());
+      url.searchParams.set('theta', this.panorama.controls.theta.toString());
+      window.history.replaceState('', '', url);
+    });
+
     this.zoom.zoomIn.addEventListener('click', () => this.panorama.controls.zoomIn());
     this.zoom.zoomOut.addEventListener('click', () => this.panorama.controls.zoomOut());
 
@@ -116,27 +124,39 @@ export class PanoramaViewer extends Stylized {
 
     this.arrows.on('viewChange', this.changePanorama);
 
-    this.map.on('confirmPick', this.changeClosestPanorama);
+    this.map.on('confirmPick', this.handleMapConfirmPick);
   }
 
+  private handleMapConfirmPick = async (point: Point) => {
+    console.log('confirmPick', point);
+    this.map.pickMarker.setOpacity(0);
+    await this.changeClosestPanorama(point);
+  };
+
   private async initPanorama() {
-    await this.changePanoramaRandom();
+    const url = new URL(location.href);
+    const uuid = url.searchParams.get('uuid');
+
+    if (uuid !== null) {
+      const fov = parseFloat(url.searchParams.get('fov') || Panorama.defaultOptions.fov.toString());
+      const phi = parseFloat(url.searchParams.get('phi') || '0');
+      const theta = parseFloat(url.searchParams.get('theta') || '0');
+
+      this.panorama.overrideHeading(phi, theta, fov);
+      await this.changePanorama(uuid);
+    } else {
+      await this.changePanoramaRandom();
+    }
   }
 
   private changePanorama = async (uuid: string) => {
     const view = await (await fetch(`/api/v1/views/view?uuid=${uuid}`)).json() as GetView;
-
-    this.panorama.changePanorama(view);
-    this.arrows.drawArrows(view.data);
-    this.map.setPosition([view.data.target.position.x, view.data.target.position.y], this.panorama.controls.phi);
+    this.changeViewExploration(view);
   };
 
   private changePanoramaRandom = async () => {
     const view = await (await fetch('/api/v1/views/random')).json() as GetView;
-
-    this.panorama.changePanorama(view);
-    this.arrows.drawArrows(view.data);
-    this.map.setPosition([view.data.target.position.x, view.data.target.position.y], this.panorama.controls.phi);
+    this.changeViewExploration(view);
   };
 
   private changeClosestPanorama = async (point: Point) => {
@@ -145,9 +165,16 @@ export class PanoramaViewer extends Stylized {
     url.searchParams.set('y', point.y.toString());
 
     const view = await (await fetch(url.href)).json() as GetView;
+    this.changeViewExploration(view);
+  };
 
-    this.panorama.changePanorama(view);
+  private changeViewExploration = async (view: GetView) => {
+    const url = new URL(location.href);
+    url.searchParams.set('uuid', view.data.target.uuid);
+    window.history.replaceState('', '', url);
+
     this.arrows.drawArrows(view.data);
     this.map.setPosition([view.data.target.position.x, view.data.target.position.y], this.panorama.controls.phi);
+    await this.panorama.changePanorama(view);
   };
 }

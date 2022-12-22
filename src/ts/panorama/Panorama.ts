@@ -161,14 +161,6 @@ class Panorama extends EventEmitter {
     }
 
     if (updates.has(PanoramaControlsUpdate.FINISHED)) {
-      console.log('Animation finished');
-
-      const url = new URL(location.href);
-      url.searchParams.set('fov', this.controls.fov.toString());
-      url.searchParams.set('phi', this.controls.phi.toString());
-      url.searchParams.set('theta', this.controls.theta.toString());
-      window.history.replaceState('', '', url);
-
       this.emit('animationFinished');
     }
 
@@ -319,6 +311,14 @@ class Panorama extends EventEmitter {
 
   private unblur(): void {
     this.canvas.classList.remove('panorama-canvas-blur');
+  }
+
+  public overrideHeading(phi: number, theta: number, fov = Panorama.defaultOptions.fov): void {
+    this.firstLoad = false;
+
+    this.controls.setFov(fov);
+    this.controls.setPhi(phi);
+    this.controls.setTheta(theta);
   }
 }
 
