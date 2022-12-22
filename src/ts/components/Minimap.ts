@@ -3,10 +3,17 @@ import { RasterCoords } from './RasterCoords';
 import { Component } from './Component';
 import { Stylized } from './Stylized';
 
+
+export enum MinimapMode {
+  GUESSING,
+  EXPLORATION,
+}
+
 export interface MinimapOptions {
   createVisible: boolean,
   maxWidthOffsetRem: number,
   maxHeightOffsetRem: number,
+  mode: MinimapMode,
 }
 
 export declare interface Minimap {
@@ -30,7 +37,8 @@ export class Minimap extends Component<HTMLDivElement, MinimapOptions> {
   public confirmButton: HTMLButtonElement;
   public minimap: LeafletMap;
   public coords: RasterCoords;
-  public marker: Marker;
+  public pickMarker: Marker;
+  public positionMarker: Marker;
   private imageSize: [number, number] = [16384, 16384];
   private mapSize: [number, number] = [6000, 6000];
   private animating = false;
@@ -59,6 +67,7 @@ export class Minimap extends Component<HTMLDivElement, MinimapOptions> {
     createVisible: true,
     maxWidthOffsetRem: 3.2,
     maxHeightOffsetRem: 8,
+    mode: MinimapMode.GUESSING,
   };
 
   constructor(options: Partial<MinimapOptions> = {}) {
@@ -66,7 +75,7 @@ export class Minimap extends Component<HTMLDivElement, MinimapOptions> {
 
     [this.element, this.minimapElement, this.resizeButton, this.confirmButton, this.returnButton] = this.createElement();
 
-    this.marker = new Marker([0, 0], {
+    this.pickMarker = new Marker([0, 0], {
       icon: new Icon({
         iconUrl: '/public/img/mapMarker.svg',
         iconSize: [25, 25],
@@ -74,6 +83,15 @@ export class Minimap extends Component<HTMLDivElement, MinimapOptions> {
       }),
       opacity: 0,
     });
+    this.positionMarker = new Marker([0, 0], {
+      icon: new Icon({
+        iconUrl: '/public/img/radarCentre.svg',
+        iconSize: [25, 25],
+        iconAnchor: [12.5, 12.5],
+      }),
+      opacity: 0,
+    });
+
     [this.minimap, this.coords] = this.createMap();
 
     this.deactivateMinimap();
@@ -87,14 +105,14 @@ export class Minimap extends Component<HTMLDivElement, MinimapOptions> {
     this.minimap.invalidateSize();
   };
 
-  public rendered(): void {
+  public mounted(): void {
     this.minimap.invalidateSize();
     this.minimap.setView(this.coords.unprojectMap([0, 0]), 0);
   }
 
   private registerEventHandlers(): void {
     this.confirmButton.addEventListener('click', () => {
-      this.emit('confirmPick', this.coords.projectMap(this.marker.getLatLng()));
+      this.emit('confirmPick', this.coords.projectMap(this.pickMarker.getLatLng()));
     });
 
     this.returnButton.addEventListener('click', () => {
@@ -201,8 +219,11 @@ export class Minimap extends Component<HTMLDivElement, MinimapOptions> {
 
     const confirmButton = document.createElement('button');
     confirmButton.classList.add('minimap-button', 'minimap-confirm');
-    confirmButton.innerText = 'Confirm';
-
+    switch (this.options.mode) {
+      case MinimapMode.GUESSING: confirmButton.innerText = 'Confirm'; break;
+      case MinimapMode.EXPLORATION: confirmButton.innerText = 'Teleport'; break;
+      default: confirmButton.innerText = 'Confirm';
+    }
 
     const returnButton = document.createElement('button');
     returnButton.classList.add('minimap-button', 'minimap-return');
@@ -225,7 +246,10 @@ export class Minimap extends Component<HTMLDivElement, MinimapOptions> {
     tmp4.classList.add('minimap-buttons');
     tmp3.appendChild(tmp4);
     tmp4.appendChild(confirmButton);
-    tmp4.appendChild(returnButton);
+
+    if (this.options.mode === MinimapMode.GUESSING) {
+      tmp4.appendChild(returnButton);
+    }
 
 
     return [element, minimap, resizeButton, confirmButton, returnButton];
@@ -288,12 +312,20 @@ export class Minimap extends Component<HTMLDivElement, MinimapOptions> {
     vectorGroup.addTo(minimap);
 
     minimap.on('click', (ev) => {
-      this.marker.setOpacity(1);
-      this.marker.setLatLng(ev.latlng);
+      this.pickMarker.setOpacity(1);
+      this.pickMarker.setLatLng(ev.latlng);
     });
 
-    this.marker.addTo(minimap);
+    this.pickMarker.addTo(minimap);
+    if (this.options.mode === MinimapMode.EXPLORATION) this.positionMarker.addTo(minimap);
 
     return [minimap, coords];
+  }
+
+  public setPosition(position: [number, number], rotation: number): void {
+    this.positionMarker.setOpacity(1);
+    this.positionMarker.setLatLng(this.coords.unprojectMap(position));
+
+    this.minimap.setView(this.positionMarker.getLatLng(), this.minimap.getZoom());
   }
 }

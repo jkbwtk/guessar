@@ -78,4 +78,43 @@ class ViewController extends AppController {
       $this->throwGenericError();
     }
   }
+
+  public function getClosestView() {
+    header('Content-Type: application/json');
+
+    $this->enforceRequestMethod('isGet');
+
+    try {
+      if (!isset($_GET['x']) || !isset($_GET['y'])) {
+        throw new Exception('X or Y is not set', 4);
+      }
+
+      $x = $_GET['x'];
+      $y = $_GET['y'];
+
+      if (!is_numeric($x) || !is_numeric($y)) {
+        throw new Exception('X or Y is not a number', 3);
+      }
+
+      $view = $this->viewRepository->getClosest($x, $y);
+      if ($view == null) {
+        throw new Exception("View not found", 1);
+      }
+
+      $neighbors = $this->viewRepository->getNeighbors($view->getNeighbors(), 5);
+
+      $response = [
+        'data' => [
+          'target' => $view->toObject(),
+          'neighbors' => array_map(function ($neighbor) {
+            return $neighbor->toObject();
+          }, $neighbors)
+        ]
+      ];
+
+      return print(json_encode($response));
+    } catch (\Throwable $th) {
+      $this->throwGenericError();
+    }
+  }
 }

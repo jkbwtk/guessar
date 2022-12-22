@@ -29,6 +29,15 @@ class ViewRepository extends Repository {
     return $views;
   }
 
+  public function getClosest(float $x, float $y): ?View {
+    $stmt = $this->database->getConnection()->prepare('SELECT *, array_to_json("neighbors") as neighbors FROM "Views" ORDER BY (position_x - :x) * (position_x - :x) + (position_y - :y) * (position_y - :y) LIMIT 1');
+    $stmt->bindParam(':x', $x, PDO::PARAM_STR);
+    $stmt->bindParam(':y', $y, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $this->statementToView($stmt);
+  }
+
   private function crawl(array $neighbors, int $levels, int $level, array &$views, array &$visited): void {
     if ($level > $levels) return;
 

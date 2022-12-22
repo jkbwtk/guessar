@@ -4,9 +4,9 @@ import { GetView } from '../types/panorama';
 import { Stylized } from '../components/Stylized';
 import { CompassBar } from '../components/CompassBar';
 import { ZoomControls } from '../components/ZoomControls';
-import { Minimap } from '../components/Minimap';
-import { toRadians } from './MathUtils';
+import { Minimap, MinimapMode } from '../components/Minimap';
 import { ViewControls } from '../components/ViewControls';
+import { Point } from 'leaflet';
 
 
 export class PanoramaViewer extends Stylized {
@@ -42,6 +42,12 @@ export class PanoramaViewer extends Stylized {
 
     this.registerEventHandlers();
     this.injectStyles();
+
+    this.mounted();
+  }
+
+  private mounted(): void {
+    this.map.mounted();
   }
 
   private createUi(): HTMLDivElement {
@@ -76,6 +82,7 @@ export class PanoramaViewer extends Stylized {
     const map = new Minimap({
       maxWidthOffsetRem: 12,
       maxHeightOffsetRem: 16.8,
+      mode: MinimapMode.EXPLORATION,
     });
     map.element.classList.add('panorama-ui-map');
     this.ui.appendChild(map.element);
@@ -108,6 +115,8 @@ export class PanoramaViewer extends Stylized {
     });
 
     this.arrows.on('viewChange', this.changePanorama);
+
+    this.map.on('confirmPick', this.changeClosestPanorama);
   }
 
   private async initPanorama() {
@@ -119,6 +128,7 @@ export class PanoramaViewer extends Stylized {
 
     this.panorama.changePanorama(view);
     this.arrows.drawArrows(view.data);
+    this.map.setPosition([view.data.target.position.x, view.data.target.position.y], this.panorama.controls.phi);
   };
 
   private changePanoramaRandom = async () => {
@@ -126,5 +136,18 @@ export class PanoramaViewer extends Stylized {
 
     this.panorama.changePanorama(view);
     this.arrows.drawArrows(view.data);
+    this.map.setPosition([view.data.target.position.x, view.data.target.position.y], this.panorama.controls.phi);
+  };
+
+  private changeClosestPanorama = async (point: Point) => {
+    const url = new URL('/api/v1/views/closest', window.location.href);
+    url.searchParams.set('x', point.x.toString());
+    url.searchParams.set('y', point.y.toString());
+
+    const view = await (await fetch(url.href)).json() as GetView;
+
+    this.panorama.changePanorama(view);
+    this.arrows.drawArrows(view.data);
+    this.map.setPosition([view.data.target.position.x, view.data.target.position.y], this.panorama.controls.phi);
   };
 }
