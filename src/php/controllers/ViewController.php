@@ -15,8 +15,6 @@ class ViewController extends AppController {
   public function getView() {
     header('Content-Type: application/json');
 
-    $this->enforceRequestMethod('isGet');
-
     try {
       if (!isset($_GET['uuid'])) {
         throw new Exception('UUID is not set');
@@ -47,14 +45,12 @@ class ViewController extends AppController {
 
       return print(json_encode($response));
     } catch (\Throwable $e) {
-      $this->throwGenericError();
+      return AppController::throwGenericError();
     }
   }
 
   public function getRandomView() {
     header('Content-Type: application/json');
-
-    $this->enforceRequestMethod('isGet');
 
     try {
       $view = $this->viewRepository->getRandomView();
@@ -75,14 +71,12 @@ class ViewController extends AppController {
 
       return print(json_encode($response));
     } catch (\Throwable $th) {
-      $this->throwGenericError();
+      return AppController::throwGenericError();
     }
   }
 
   public function getClosestView() {
     header('Content-Type: application/json');
-
-    $this->enforceRequestMethod('isGet');
 
     try {
       if (!isset($_GET['x']) || !isset($_GET['y'])) {
@@ -114,7 +108,7 @@ class ViewController extends AppController {
 
       return print(json_encode($response));
     } catch (\Throwable $th) {
-      $this->throwGenericError();
+      return AppController::throwGenericError();
     }
   }
 }

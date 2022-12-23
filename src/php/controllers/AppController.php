@@ -30,13 +30,6 @@ class AppController {
         }
     }
 
-    protected function throwGenericError(): void {
-        http_response_code(500);
-        die(json_encode([
-            'error' => 'Internal server error'
-        ]));
-    }
-
     protected function render(string $template = null, array $variables = []) {
         $templatePath = 'public/views/' . $template . '.php';
         $output = self::get404View();
@@ -57,5 +50,32 @@ class AppController {
         $output = ob_get_clean();
 
         return $output;
+    }
+
+    public static function throwNotFound() {
+        header('Content-Type: application/json');
+        http_response_code(404);
+        die(json_encode([
+            'status' => 404,
+            'message' => 'Not found'
+        ]));
+    }
+
+    public static function throwNotAllowed() {
+        header('Content-Type: application/json');
+        http_response_code(405);
+        die(json_encode([
+            'status' => 405,
+            'message' => 'Method not allowed'
+        ]));
+    }
+
+    public static function throwGenericError() {
+        header('Content-Type: application/json');
+        http_response_code(500);
+        die(json_encode([
+            'status' => 500,
+            'message' => 'Internal server error'
+        ]));
     }
 }
