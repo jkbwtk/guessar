@@ -16,7 +16,7 @@ export abstract class Component<E = HTMLElement, O extends object = object, S = 
 
   get options(): O {
     if (this.finalOptions === undefined) {
-      this.finalOptions = Object.assign(this.defaultOptions, this.baseOptions);
+      this.finalOptions = { ...this.defaultOptions, ...this.baseOptions };
     }
 
     return this.finalOptions;

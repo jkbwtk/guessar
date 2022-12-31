@@ -2,12 +2,16 @@
 
 require_once 'src/php/controllers/DefaultController.php';
 require_once 'src/php/controllers/ViewController.php';
+require_once 'src/php/controllers/AuthController.php';
+require_once 'src/php/controllers/AvatarController.php';
+require_once 'src/php/controllers/UserController.php';
 require_once 'Route.php';
 
 class Router {
     public static array $paths;
     public static array $getRoutes;
     public static array $postRoutes;
+    public static array $deleteRoutes;
 
     public static function get($path, $controller, $action) {
         self::$paths[$path] = $path;
@@ -19,6 +23,11 @@ class Router {
         self::$postRoutes[$path] = new Route($path, $controller, $action, RouteTypes::POST);
     }
 
+    public static function delete($path, $controller, $action) {
+        self::$paths[$path] = $path;
+        self::$deleteRoutes[$path] = new Route($path, $controller, $action, RouteTypes::DELETE);
+    }
+
     public static function getRoute($path, $method): ?Route {
         switch ($method) {
             case 'GET':
@@ -28,6 +37,10 @@ class Router {
             case 'POST':
                 if (!array_key_exists($path, self::$postRoutes)) return null;
                 else return self::$postRoutes[$path];
+
+            case 'DELETE':
+                if (!array_key_exists($path, self::$deleteRoutes)) return null;
+                else return self::$deleteRoutes[$path];
 
             default:
                 return null;

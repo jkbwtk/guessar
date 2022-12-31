@@ -1,6 +1,7 @@
 import csv
 import os
 from io import TextIOWrapper
+import re
 from tqdm import tqdm
 
 from sqlalchemy.sql.expression import text
@@ -101,9 +102,14 @@ def dropTableIfExists(ctx: Context, table: str):
 def createTables(ctx: Context):
     tables = list(filter(lambda f: f.endswith('.sql') and f != 'database.sql', os.listdir('resources/database')))
     print('Creating tables: ', tables)
+    reg = r'^\d{2}_'
 
     for table in tables:
-        tableName = table[:-4]
+        if re.match(reg, table):
+            tableName = table[3:-4]
+        else:
+            tableName = table[:-4]
+
         dropTableIfExists(ctx, tableName)
 
         with open(f'resources/database/{table}', 'r', encoding='utf-8') as f:

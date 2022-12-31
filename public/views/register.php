@@ -18,14 +18,14 @@
   <link rel="stylesheet" type="text/css" href="/public/css/style.css">
   <link rel="stylesheet" type="text/css" href="/public/css/auth.css">
 
-  <script type="module" src="/public/js/login.js"></script>
+  <script type="module" src="/public/js/register.js"></script>
 </head>
 
 <body style="overflow: hidden;">
   <div class="container">
     <?php include 'public/views/components/topBar.php' ?>
 
-    <?php include 'public/views/components/authBox.php' ?>
+    <?php include 'public/views/components/registerBox.php' ?>
     <div class="background01"></div>
   </div>
 </body>

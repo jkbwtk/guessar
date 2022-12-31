@@ -1,5 +1,6 @@
-import { AuthBox } from './AuthBox.js';
+import { LoginBox } from './LoginBox';
 import { NavBar } from './NavBar.js';
 
+
 const navbar = new NavBar();
-const loginbox = new AuthBox();
+const loginBox = new LoginBox();

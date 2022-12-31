@@ -43,8 +43,12 @@
   </div>
 
   <div class="auth-group top-desktop">
-    <a href="/login"><button class="button-small" id="topLogin">Log In</button></a>
-    <a href="/register"><button class="button-small" id="topRegister">Sign Up</button></a>
+    <?php
+    if (isset($sessionUser)) include 'public/views/components/userWidget.php';
+    else { ?>
+      <a href="/login"><button class="button-small" id="topLogin">Log In</button></a>
+      <a href="/register"><button class="button-small" id="topRegister">Sign Up</button></a>
+    <?php } ?>
   </div>
 
   <button class="button-small top-avatar-mobile top-mobile" id=""><img src="/public/img/defaultAvatar.svg" /></button>

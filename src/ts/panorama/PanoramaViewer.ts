@@ -7,6 +7,7 @@ import { ZoomControls } from '../components/ZoomControls';
 import { Minimap, MinimapMode } from '../components/Minimap';
 import { ViewControls } from '../components/ViewControls';
 import { Point } from 'leaflet';
+import { UserWidget } from '../components/UserWidget';
 
 
 export class PanoramaViewer extends Stylized {
@@ -21,6 +22,7 @@ export class PanoramaViewer extends Stylized {
   private zoom: ZoomControls;
   private map: Minimap;
   private arrows: ViewControls;
+  private userWidget: UserWidget;
 
   constructor(container: HTMLElement) {
     super();
@@ -35,7 +37,14 @@ export class PanoramaViewer extends Stylized {
 
     this.panorama.resizeViewer();
 
-    [this.counter, this.compass, this.zoom, this.map, this.arrows] = this.populateUi();
+    [
+      this.counter,
+      this.compass,
+      this.zoom,
+      this.map,
+      this.arrows,
+      this.userWidget,
+    ] = this.populateUi();
 
 
     this.initPanorama();
@@ -57,7 +66,7 @@ export class PanoramaViewer extends Stylized {
     return ui;
   }
 
-  private populateUi(): [FpsCounter, CompassBar, ZoomControls, Minimap, ViewControls] {
+  private populateUi(): [FpsCounter, CompassBar, ZoomControls, Minimap, ViewControls, UserWidget] {
     const topContainer = document.createElement('div');
     topContainer.classList.add('panorama-ui-top-container');
     this.ui.appendChild(topContainer);
@@ -66,14 +75,19 @@ export class PanoramaViewer extends Stylized {
     counter.element.classList.add('panorama-ui-counter');
     topContainer.appendChild(counter.element);
 
-    const compass = new CompassBar();
-    compass.element.classList.add('panorama-ui-compass');
-    topContainer.appendChild(compass.element);
-
     const filler = document.createElement('div');
     filler.style.width = '11rem';
     filler.style.flexShrink = '600000';
     topContainer.appendChild(filler);
+
+    const compass = new CompassBar();
+    compass.element.classList.add('panorama-ui-compass');
+    topContainer.appendChild(compass.element);
+
+    const userWidget = new UserWidget();
+    userWidget.element.classList.add('panorama-ui-user-widget');
+    topContainer.appendChild(userWidget.element);
+
 
     const zoom = new ZoomControls();
     zoom.element.classList.add('panorama-ui-zoom');
@@ -91,7 +105,8 @@ export class PanoramaViewer extends Stylized {
     arrows.element.classList.add('panorama-ui-arrows');
     this.ui.appendChild(arrows.element);
 
-    return [counter, compass, zoom, map, arrows];
+
+    return [counter, compass, zoom, map, arrows, userWidget];
   }
 
   private registerEventHandlers() {

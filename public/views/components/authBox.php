@@ -13,26 +13,27 @@ function getAuthTypeFromURI() {
   <p class="login-hint login-element">Log in with your email here.</p>
 
   <h1 class="login-title register-element">Sign Up</h1>
-  <p class="login-hint register-element">Create a free acount with your email.</p>
+  <p class="login-hint register-element">Create a free account with your email.</p>
 
-  <div class="login-field-group">
-    <input class="login-input register-element" type="text" id="logUsername" name="username" pattern="text" placeholder="Username" required>
+  <form action="/">
+    <div class="login-field-group">
+      <input class="login-input" type="email" id="logEmail" name="email" placeholder="Email" autocomplete="email">
+      <input class="login-input register-element" type="text" id="logUsername" name="username" placeholder="Username" autocomplete="username">
 
-    <input class="login-input" type="email" id="logEmail" name="email" pattern="email" placeholder="Email" required>
+      <div class="login-password-group">
+        <img class="login-show-password" src="/public/img/eyeIcon.svg">
+        <input class="login-input" type="password" id="logPassword" name="password" placeholder="Password">
+      </div>
 
-    <div class="login-password-group">
-      <img class="login-show-password" src="/public/img/eyeIcon.svg">
-      <input class="login-input" type="password" id="logPassword" name="password" placeholder="Password" required>
+      <div class="login-password-group register-element">
+        <img class="login-show-password" src="/public/img/eyeIcon.svg">
+        <input class="login-input" type="password" id="logConfirmPassword" name="password" placeholder="Repeat Password">
+      </div>
     </div>
 
-    <div class="login-password-group register-element">
-      <img class="login-show-password" src="/public/img/eyeIcon.svg">
-      <input class="login-input" type="password" id="logConfirmPassword" name="password" placeholder="Repeat Password" required>
-    </div>
-  </div>
-
-  <button class="button-small login-submit-button login-element">Log In</button>
-  <button class="button-small login-submit-button register-element">Sign Up</button>
+    <button class="button-small login-submit-button login-element" id="logLogin" type="submit">Log In</button>
+    <!-- <button class="button-small login-submit-button register-element" id="logRegister" type="submit">Sign Up</button> -->
+  </form>
 
   <div class="login-alt-group">
     <button class="login-continue-google">Continue with Google</button>

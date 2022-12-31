@@ -15,38 +15,74 @@
     /* justify-content: flex-end; */
 }
 
-.login-box {
-    height: 49.8rem;
-}
-
-.register-box {
-    height: 61.7rem;
-}
-
-.login-box .register-element {
-    display: none;
-}
-
-.register-box .login-element {
-    display: none;
-}
-
-.login-title {
+.auth-title {
     font-size: 4.8rem;
     color: #000000;
 
     margin-bottom: 0px;
 }
 
-.login-hint {
+.auth-hint-container {
+    position: relative;
+    margin-bottom: 2.5rem;
+
+    height: 1.8rem;
+    width: 100%;
+}
+
+.auth-hint {
+    position: absolute;
+
     font-size: 1.6rem;
     color: #969696;
 
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
     margin-top: 0px;
-    margin-bottom: 2.5rem;
+    margin-bottom: 0px;
+    text-align: center;
+
+    width: 100%;
 }
 
-.login-field-group {
+.auth-hint-error {
+    text-transform: uppercase;
+    color: #e67070;
+
+    animation: shake-horizontally 0.25s ease-in-out;
+}
+
+@keyframes shake-horizontally {
+    0% {
+        left: 50%;
+    }
+
+    25% {
+        left: 53%;
+    }
+
+    50% {
+        left: 50%;
+    }
+
+    75% {
+        left: 47%;
+    }
+
+    100% {
+        left: 50%;
+    }
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-field-group {
     width: 100%;
     height: fit-content;
 
@@ -57,7 +93,7 @@
     gap: 2rem;
 }
 
-.login-input {
+.auth-input {
     width: 27.5rem;
     height: 3.9rem;
 
@@ -77,12 +113,12 @@
     transition: background-color 0.25s ease-in-out;
 }
 
-.login-input::selection {
+.auth-input::selection {
     background-color: #101010;
     color: #FFFFFF;
 }
 
-.login-invalid-input {
+.auth-invalid-input {
     background-color: #eec8c8 !important;
 
     outline-color: #e67070;
@@ -90,15 +126,15 @@
     outline-style: solid;
 }
 
-.login-password-group {
+.auth-password-group {
     position: relative;
 }
 
-.login-password-group>.login-input {
+.auth-password-group>.auth-input {
     padding-right: 5.5rem;
 }
 
-.login-show-password {
+.auth-show-password {
     position: absolute;
     right: 1.5rem;
 
@@ -110,7 +146,7 @@
     cursor: pointer;
 }
 
-.login-submit-button {
+.auth-submit-button {
     height: 4.5rem;
     border-radius: 5rem;
 
@@ -120,9 +156,61 @@
     margin-top: 2.5rem;
 
     flex-shrink: 0;
+
+    transition: filter 0.25s ease-in-out, opacity 0.25s ease-in-out, color 0.25s ease-in-out;
 }
 
-.login-alt-group {
+.auth-submit-button-disabled {
+    filter: contrast(0.8) grayscale(0.1);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.auth-submit-button-awaiting {
+    color: transparent;
+    position: relative;
+}
+
+.auth-submit-button-awaiting::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height: 100%;
+    width: 100%;
+
+    background-image: url('/public/img/spinner.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 2.8rem;
+
+    animation: fade-in 0.1s ease forwards, spin 1s ease infinite;
+
+    transition: color 0.1s;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.auth-alt-group {
     width: 100%;
     height: fit-content;
 
@@ -135,7 +223,7 @@
     gap: 2rem;
 }
 
-.login-continue-google {
+.auth-continue-google {
     width: 27.5rem;
     height: 3.9rem;
 
@@ -146,7 +234,7 @@
     font-size: 1.6rem;
 }
 
-.login-continue-github {
+.auth-continue-github {
     width: 27.5rem;
     height: 3.9rem;
 
@@ -157,7 +245,7 @@
     font-size: 1.6rem;
 }
 
-.login-option-group {
+.auth-option-group {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -166,7 +254,7 @@
     margin-top: 1.5rem;
 }
 
-.login-option {
+.auth-option {
     font-size: 1.6rem;
     color: #000000;
 
@@ -178,14 +266,14 @@
     align-items: center;
 }
 
-.login-option>span {
+.auth-option>span {
     height: inherit;
 
     display: flex;
     align-items: center;
 }
 
-.login-option>a {
+.auth-option>a {
     color: var(--app-acc-color);
     text-decoration: none;
 
@@ -197,6 +285,6 @@
     cursor: pointer;
 }
 
-.login-option>a:hover {
+.auth-option>a:hover {
     text-decoration: underline;
 }

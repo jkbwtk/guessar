@@ -25,7 +25,7 @@
   <div class="container">
     <?php include 'public/views/components/topBar.php' ?>
 
-    <?php include 'public/views/components/authBox.php' ?>
+    <?php include 'public/views/components/loginBox.php' ?>
     <div class="background03"></div>
   </div>
 </body>

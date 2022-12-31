@@ -54,7 +54,7 @@ export class PanoramaControls {
     this.camera = camera;
     this.controller = controller;
 
-    this.options = Object.assign(this.options, options);
+    this.options = { ...this.options, ...options };
 
     this.spherical = new Spherical();
     this.clickStart = new Vector2();

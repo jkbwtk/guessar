@@ -1,3 +1,4 @@
+import { UserWidget } from './components/UserWidget.js';
 import { enumerate } from './utils.js';
 
 
@@ -17,42 +18,31 @@ export class NavBar {
   private mobileMenu: HTMLElement;
   private mobileBurger: HTMLElement;
 
+  private userWidget?: HTMLDivElement;
+  private userWidgetComponent?: UserWidget;
+
   private children: NavChild[];
   private lastDisabled: number;
 
   constructor() {
-    const node = document.getElementById('navBar');
-    const menu = document.getElementById('navMenu');
-    const burger = document.getElementById('navBurger');
-    const mobileMenu = document.getElementById('navMenuMobile');
-    const mobileBurger = document.getElementById('navBurgerMobile');
+    this.node = document.getElementById('navBar') as HTMLElement;
+    this.menu = document.getElementById('navMenu') as HTMLElement;
+    this.burger = document.getElementById('navBurger') as HTMLElement;
+    this.mobileMenu = document.getElementById('navMenuMobile') as HTMLElement;
+    this.mobileBurger = document.getElementById('navBurgerMobile') as HTMLElement;
+    this.userWidget = document.getElementById('userWidget') as HTMLDivElement;
 
+    if (this.node === null) throw new Error('NavBar: Could not find navBar');
+    if (this.menu === null) throw new Error('NavBar: Could not find navMenu');
+    if (this.burger === null) throw new Error('NavBar: Could not find navBurger');
+    if (this.mobileMenu === null) throw new Error('NavBar: Could not find navMenuMobile');
+    if (this.mobileBurger === null) throw new Error('NavBar: Could not find navBurgerMobile');
 
-    if (node === null) {
-      throw new Error('NavBar: Could not find navBar');
+    if (this.userWidget !== null) {
+      this.userWidgetComponent = new UserWidget({
+        hydrateElement: this.userWidget,
+      });
     }
-
-    if (menu === null) {
-      throw new Error('NavBar: Could not find navMenu');
-    }
-
-    if (burger === null) {
-      throw new Error('NavBar: Could not find navBurger');
-    }
-
-    if (mobileMenu === null) {
-      throw new Error('NavBar: Could not find navMenuMobile');
-    }
-
-    if (mobileBurger === null) {
-      throw new Error('NavBar: Could not find navBurgerMobile');
-    }
-
-    this.node = node;
-    this.menu = menu;
-    this.burger = burger;
-    this.mobileMenu = mobileMenu;
-    this.mobileBurger = mobileBurger;
 
     this.children = [];
     this.lastDisabled = -1;

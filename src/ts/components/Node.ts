@@ -26,8 +26,21 @@ export class Node<T extends keyof HTMLElementTagNameMap> {
     return this.map(((v) => v.classList.remove(...tokens)));
   }
 
-  public appendChild(node: globalThis.Node): this {
-    return this.map((v) => v.appendChild(node));
+  public setId(id: string): this {
+    return this.map((v) => v.id = id);
+  }
+
+  public appendChild(node: globalThis.Node | Node<keyof HTMLElementTagNameMap>): this {
+    const child = node instanceof Node ? node.unwrapUnsafe() : node;
+    return this.map((v) => v.appendChild(child));
+  }
+
+  public appendChildren(...nodes: (globalThis.Node | Node<keyof HTMLElementTagNameMap>)[]): this {
+    for (const node of nodes) {
+      this.appendChild(node);
+    }
+
+    return this;
   }
 
   public innerText(text: string): this {
@@ -58,5 +71,9 @@ export class Node<T extends keyof HTMLElementTagNameMap> {
 
   public static src = <T extends HTMLElementTagNameMap['img']>(src: string): ((v: T) => void) => {
     return ((v) => v.src = src);
+  };
+
+  public static href = <T extends HTMLElementTagNameMap['a']>(href: string): ((v: T) => void) => {
+    return ((v) => v.href = href);
   };
 }
