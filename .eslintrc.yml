@@ -12,7 +12,8 @@ plugins:
 rules:
   require-jsdoc: "off"
   linebreak-style: "off"
-  object-curly-spacing:
+  object-curly-spacing: "off"
+  "@typescript-eslint/object-curly-spacing":
     - error
     - always
   max-len: ["error", { "code": 160, "comments": 320 }]
@@ -23,6 +24,7 @@ rules:
   space-infix-ops: ["error", { "int32Hint": false }]
   camelcase: ["off", { "properties": "never" }]
   indent: ["error", 2, { "SwitchCase": 1 }]
+  "@typescript-eslint/indent": ["error", 2, { "SwitchCase": 1 }]
   sort-imports:
     [
       "error",
