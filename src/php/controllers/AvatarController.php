@@ -55,9 +55,12 @@ class AvatarController extends AppController {
     }
   }
 
-  public function getAvatar() {
-    if (!isset($_GET['id'])) $this->throwValidationError(0);
-    $id = $_GET['id'];
+  public function getAvatar(array $params) {
+    if (!array_key_exists('id', $params)) $this->throwValidationError(0);
+    $id = $params['id'];
+
+    if (!is_numeric($id)) $this->throwValidationError(0);
+    $id = intval($id);
 
     $avatar = $this->avatarRepository->getAvatarById($id);
     if ($avatar === null) $this->throwNotFound();

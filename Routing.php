@@ -8,62 +8,87 @@ require_once 'src/php/controllers/UserController.php';
 require_once 'Route.php';
 
 class Router {
-    public static array $paths;
-    public static array $getRoutes;
-    public static array $postRoutes;
-    public static array $deleteRoutes;
+    public static array $routes = [];
 
-    public static function get($path, $controller, $action) {
-        self::$paths[$path] = $path;
-        self::$getRoutes[$path] = new Route($path, $controller, $action, RouteTypes::GET);
-    }
+    public static function addRoute(Route $route) {
+        $explodedPath = explode('/', $route->path);
+        $routesRef = & self::$routes;
 
-    public static function post($path, $controller, $action) {
-        self::$paths[$path] = $path;
-        self::$postRoutes[$path] = new Route($path, $controller, $action, RouteTypes::POST);
-    }
+        array_push($explodedPath, '/');
 
-    public static function delete($path, $controller, $action) {
-        self::$paths[$path] = $path;
-        self::$deleteRoutes[$path] = new Route($path, $controller, $action, RouteTypes::DELETE);
-    }
+        while (count($explodedPath) > 0) {
+            $dir = array_shift($explodedPath);
 
-    public static function getRoute($path, $method): ?Route {
-        switch ($method) {
-            case 'GET':
-                if (!array_key_exists($path, self::$getRoutes)) return null;
-                else return self::$getRoutes[$path];
+            if (Route::isParam($dir))
+                $dir = ':param';
 
-            case 'POST':
-                if (!array_key_exists($path, self::$postRoutes)) return null;
-                else return self::$postRoutes[$path];
 
-            case 'DELETE':
-                if (!array_key_exists($path, self::$deleteRoutes)) return null;
-                else return self::$deleteRoutes[$path];
-
-            default:
-                return null;
+            if (!array_key_exists($dir, $routesRef)) {
+                $routesRef[$dir] = [];
+                $routesRef = & $routesRef[$dir];
+            } else {
+                $routesRef = & $routesRef[$dir];
+            }
         }
+
+        $type = $route->type->value;
+        $routesRef[$type] = $route;
+    }
+
+    public static function getRoute($path): Route {
+        $explodedPath = explode('/', $path);
+        if (count($explodedPath) > 10)
+            AppController::throwNotFound();
+
+        $routesRef = & self::$routes;
+
+        $requestType = Route::getTypeByString($_SERVER['REQUEST_METHOD']);
+        if ($requestType === null)
+            AppController::throwNotAllowed();
+
+        array_push($explodedPath, '/');
+
+        while (count($explodedPath) > 0) {
+            $dir = array_shift($explodedPath);
+
+            if (!array_key_exists($dir, $routesRef)) {
+                if (!array_key_exists(':param', $routesRef)) {
+                    if (strpos($path, 'api/') !== 0)
+                        die(AppController::get404View());
+
+                    AppController::throwNotFound();
+                } else {
+                    $dir = ':param';
+                }
+            }
+
+            $routesRef = & $routesRef[$dir];
+        }
+
+        if (!array_key_exists($requestType, $routesRef))
+            AppController::throwNotAllowed();
+
+        $route = $routesRef[$requestType];
+
+        if (!($route instanceof Route))
+            AppController::throwNotFound();
+
+
+        return $routesRef[$requestType];
     }
 
     public static function run($path) {
-        if (!array_key_exists($path, self::$paths)) {
-            // special case for non api calls
-            if (strpos($path, 'api/') !== 0) return print(AppController::get404View());
-
-            return AppController::throwNotFound();
-        }
-
-        $method = $_SERVER['REQUEST_METHOD'];
-        $route = self::getRoute($path, $method);
-
-        if ($route === null) return AppController::throwNotAllowed();
+        $route = self::getRoute($path);
 
         $controller = $route->controller;
         $action = $route->action;
 
         $object = new $controller;
-        $object->$action();
+
+        if ($route->hasParams) {
+            $object->$action($route->extractParams($path));
+        } else {
+            $object->$action();
+        }
     }
 }

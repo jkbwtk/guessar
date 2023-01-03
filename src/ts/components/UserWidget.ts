@@ -21,7 +21,7 @@ export class UserWidget extends Component<HTMLDivElement, UserWidgetOptions> {
 
     [this.element, this.avatar, this.username, this.dropdown] = this.isHydrated() ? this.hydrate() : this.render();
 
-    this.update();
+    if (!this.isHydrated()) this.update();
     this.registerEventHandlers();
     this.injectStyles();
   }
@@ -120,7 +120,7 @@ export class UserWidget extends Component<HTMLDivElement, UserWidgetOptions> {
     if (user) {
       const discriminator = user.discriminator.toString().padStart(4, '0');
 
-      this.avatar.src = typeof user.avatar === 'number' ? `/api/v1/avatar?id=${user.avatar}` : defaultAvatar;
+      this.avatar.src = typeof user.avatar === 'number' ? `/api/v1/avatar/${user.avatar}` : defaultAvatar;
       this.username.innerText = `${user.username}#${discriminator}`;
     } else {
       this.avatar.src = defaultAvatar;

@@ -3,7 +3,7 @@
   <?php
   $avatar = $sessionUser->getAvatar();
   if ($avatar === null) print('/public/img/defaultAvatar.svg');
-  else print('/api/v1/avatar' . '?id=' . $avatar);
+  else print('/api/v1/avatar/' . $avatar);
   ?>
   ">
 
