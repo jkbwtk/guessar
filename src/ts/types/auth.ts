@@ -15,10 +15,10 @@ export interface User {
   created_at: number,
 }
 
-export type UserVerbose = User & {
+export interface UserVerbose extends User {
   id: number,
   email: string,
-};
+}
 
 export interface LoginRequest {
   email: string,

@@ -1,10 +1,14 @@
-export interface VerboseCoordinates {
+export interface ViewData {
+  uuid: string,
   position: {
     x: number,
     y: number,
     z: number,
     r: number,
   },
+  neighbors: string[]
+}
+export interface ViewDataVerbose extends ViewData {
   inVehicle: boolean,
   weather: {
     region: number,
@@ -22,13 +26,11 @@ export interface VerboseCoordinates {
     z: number,
     r: number,
   },
-  uuid: string,
-  neighbors: string[]
 }
 
 export interface View {
-  target: VerboseCoordinates,
-  neighbors: VerboseCoordinates[],
+  target: ViewData,
+  neighbors: ViewData[],
 }
 
 export interface GetView {
@@ -36,5 +38,5 @@ export interface GetView {
 }
 
 export interface GetVerboseCoordinates {
-  data: VerboseCoordinates[]
+  data: ViewData[]
 }

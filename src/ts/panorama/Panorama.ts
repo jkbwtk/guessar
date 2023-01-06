@@ -1,4 +1,4 @@
-import { GetView, VerboseCoordinates } from '../types/panorama';
+import { GetView, ViewData } from '../types/panorama';
 import { EventEmitter } from 'events';
 import { Camera } from './Camera';
 import { Spherical } from './MathUtils';
@@ -16,14 +16,14 @@ export interface PanoramaOptions {
 
 declare interface Panorama {
   on(event: 'viewReady', listener: () => void): this;
-  on(event: 'viewChange', listener: (view: VerboseCoordinates) => void): this;
+  on(event: 'viewChange', listener: (view: ViewData) => void): this;
   on(event: 'rotation', listener: (rotation: Spherical) => void): this;
   on(event: 'zoom', listener: (fov: number) => void): this;
   on(event: 'animationFinished', listener: () => void): this;
   on(event: 'frame', listener: (frametime: number) => void): this;
 
   emit(event: 'viewReady'): boolean;
-  emit(event: 'viewChange', view: VerboseCoordinates): boolean;
+  emit(event: 'viewChange', view: ViewData): boolean;
   emit(event: 'rotation', rotation: Spherical): boolean;
   emit(event: 'zoom', fov: number): boolean;
   emit(event: 'animationFinished'): boolean;

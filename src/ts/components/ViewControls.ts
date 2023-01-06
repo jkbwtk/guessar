@@ -1,5 +1,5 @@
 import { Spherical, toRadians, Vector2 } from '../panorama/MathUtils';
-import { VerboseCoordinates, View } from '../types/panorama';
+import { View, ViewData } from '../types/panorama';
 import { Component } from './Component';
 import { Node } from './Node';
 
@@ -98,7 +98,7 @@ class ViewControls extends Component<HTMLDivElement, ViewControlsOptions> {
     document.documentElement.style.setProperty('--view-controls-container-short', `${shortSide}px`);
   }
 
-  private createArrow(target: VerboseCoordinates, neighbor: VerboseCoordinates): HTMLDivElement | null {
+  private createArrow(target: ViewData, neighbor: ViewData): HTMLDivElement | null {
     const vector = new Vector2(
       target.position.x - neighbor.position.x,
       target.position.y - neighbor.position.y,
