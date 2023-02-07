@@ -62,7 +62,7 @@ export class NavBar {
     document.removeEventListener('click', this.onClick);
   }
 
-  private onLoad = () => {
+  public onLoad = (): void => {
     this.indexChildren();
     this.highlightActiveLink();
     this.onResize();
