@@ -16,8 +16,9 @@ CREATE INDEX IF NOT EXISTS "Rounds_round_number" ON "Rounds" (round_number);
 
 CREATE INDEX IF NOT EXISTS "Rounds_target_uuid" ON "Rounds" (target_uuid);
 
+
 CREATE
-OR REPLACE FUNCTION delete_old_games_and_rounds() RETURNS void AS $ $ BEGIN
+OR REPLACE FUNCTION delete_old_games_and_rounds() RETURNS void LANGUAGE plpgsql AS $$ BEGIN
 DELETE FROM
   "Games"
 WHERE
@@ -31,5 +32,4 @@ WHERE
   AND "created_at" < NOW() - INTERVAL '8 hours';
 
 END;
-
-$ $ LANGUAGE plpgsql;
+$$;
