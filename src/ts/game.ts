@@ -17,13 +17,17 @@ if (topBar === null) {
   throw new Error('Could not find top bar element');
 }
 
+const backgroundImage = document.getElementById('backgroundImage');
+
 const gameStartContainer = document.getElementById('gameStartContainer');
 
 
 if (isInGame()) {
   topBar.classList.add('disabled');
   gameStartContainer?.classList.add('disabled');
+  backgroundImage?.classList.add('disabled');
 
+  document.body.style.overflow = 'hidden';
   container.classList.add('explore-container');
 
   Game.getGame()
@@ -36,7 +40,9 @@ if (isInGame()) {
 } else {
   topBar.classList.remove('disabled');
   gameStartContainer?.classList.remove('disabled');
+  backgroundImage?.classList.remove('disabled');
 
+  document.body.style.overflow = 'initial';
   container.classList.remove('explore-container');
   const gameSettings = new GameSettings();
 }

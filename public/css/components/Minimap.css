@@ -154,6 +154,23 @@
   box-shadow: 0px 0px 2rem rgba(235, 102, 69, 0.5);
 }
 
+.minimap-activation {
+  background-color: var(--app-acc-color);
+  box-shadow: 0px 0px 2rem rgba(235, 102, 69, 0.5);
+}
+
+.minimap-activation>img {
+  height: inherit;
+  width: inherit;
+  box-sizing: border-box;
+
+  padding: 0.8rem;
+
+  transition: opacity 0.3s;
+
+  transform: translateY(-0.1rem);
+}
+
 .leaflet-control-zoom {
   border: none !important;
   border-radius: 1.6rem !important;
@@ -172,4 +189,20 @@
 
 .leaflet-bar a.leaflet-disabled {
   opacity: 0.5 !important;
+}
+
+@media screen and (max-width: 600px) {
+  .minimap-container[active='false'] .minimap-map {
+    display: none;
+  }
+
+  .minimap-container[active='false'] .minimap-confirm {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .minimap-activation {
+    display: none;
+  }
 }

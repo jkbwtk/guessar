@@ -23,7 +23,7 @@
   <script type="module" src="/public/js/game.js"></script>
 </head>
 
-<body style="overflow: hidden;">
+<body>
   <div class="container" id="container">
     <?php include 'public/views/components/topBar.php' ?>
 
@@ -74,6 +74,8 @@
         </div>
       </div>
     </div>
+
+    <div class="background04" id="backgroundImage"></div>
   </div>
 </body>
 

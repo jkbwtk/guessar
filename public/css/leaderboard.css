@@ -1,0 +1,134 @@
+.leaderboard-title {
+  font-size: 4.5rem;
+  font-weight: 700;
+
+  align-self: center;
+
+  margin-top: 5rem;
+}
+
+.leaderboard-container {
+  display: grid;
+  grid-template-columns: min-content min-content min-content min-content min-content;
+
+  font-size: 2.4rem;
+
+  max-width: fit-content;
+  align-self: center;
+
+  column-gap: 2rem;
+  row-gap: 1rem;
+
+  text-align: center;
+  white-space: nowrap;
+
+  margin: 2rem auto;
+
+  background-color: var(--app-bg-color-transparent);
+  backdrop-filter: blur(10px);
+  border-radius: 2rem 2rem 2rem 2rem;
+
+  box-sizing: border-box;
+  padding: 2rem;
+}
+
+.leaderboard-header {
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: var(--app-acc-color);
+}
+
+.leaderboard-item {
+  margin: 1rem 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leaderboard-user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 1rem;
+}
+
+.leaderboard-user>img {
+  height: 1.5em;
+  aspect-ratio: 1/1;
+
+  border-radius: 50%;
+}
+
+.leaderboard-user>span {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.leaderboard-container:nth-child(2) {
+  color: #000;
+}
+
+.leaderboard-delete {
+  color: var(--app-acc-color);
+  cursor: pointer;
+
+  user-select: none;
+}
+
+.leaderboard-confirm-delete {
+  cursor: pointer;
+  opacity: 1;
+
+  position: relative;
+}
+
+.leaderboard-confirm-delete:after {
+  opacity: 1;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  content: "🗑?";
+  border-radius: 2em;
+  background-color: #e23434;
+
+  color: var(--app-font-color);
+}
+
+@media screen and (max-width: 600px) {
+  .leaderboard-title {
+    font-size: 3.6rem;
+  }
+
+  .leaderboard-container {
+    font-size: 1.6rem;
+
+    row-gap: 0.5rem;
+    column-gap: 1rem;
+
+    grid-template-columns: min-content min-content min-content;
+  }
+
+  .leaderboard-header {
+    font-size: 2.4rem;
+  }
+
+  .leaderboard-container>*:nth-child(5n+4) {
+    display: none;
+  }
+
+  .leaderboard-container>*:nth-child(5n+5) {
+    display: none;
+  }
+}

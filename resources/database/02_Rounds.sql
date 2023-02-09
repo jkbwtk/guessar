@@ -24,12 +24,5 @@ DELETE FROM
 WHERE
   "ended_at" IS NULL
   AND "created_at" < NOW() - INTERVAL '8 hours';
-
-DELETE FROM
-  "Rounds"
-WHERE
-  "ended_at" IS NULL
-  AND "created_at" < NOW() - INTERVAL '8 hours';
-
 END;
 $$;

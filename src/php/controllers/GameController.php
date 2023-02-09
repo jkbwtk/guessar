@@ -25,6 +25,39 @@ class GameController extends AppController {
     $this->render('game');
   }
 
+  public function leaderboard() {
+    $this->sendUserCookie();
+
+    $vars = $this->getTopGamesInternal(25);
+
+    $this->render('leaderboard', $vars);
+  }
+
+  private function getTopGamesInternal(int $limit): array {
+    $limit = min($limit, 100);
+    $limit = max($limit, 1);
+
+    $games = $this->gameRepository->getTopGames($limit);
+    $games = array_filter($games, fn($game) => $game->getUserId() !== null);
+    $users = [];
+
+    foreach ($games as $game) {
+      if ($game->isFinished()) {
+        if (!isset($users[$game->getUserId()])) {
+          $user = $this->userRepository->getUserById($game->getUserId());
+          if ($user !== null) {
+            $users[$user->getId()] = $user;
+          }
+        }
+      }
+    }
+
+    return [
+      'games' => $games,
+      'users' => $users,
+    ];
+  }
+
   public function game(array $params) {
     if (isset($params['uniqid'])) {
       $uniqid = $params['uniqid'];
@@ -60,6 +93,29 @@ class GameController extends AppController {
     }
 
     print($game->toJSON());
+  }
+
+  public function getTopGames() {
+    header('Content-Type: application/json');
+
+    $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 25;
+    $vars = $this->getTopGamesInternal($limit);
+
+    $gameObjects = [];
+    $userObjects = [];
+
+    foreach ($vars['games'] as $game) {
+      $gameObjects[] = $game->toObject();
+    }
+
+    foreach ($vars['users'] as $user) {
+      $userObjects[] = $user->toObject(false);
+    }
+
+    print(json_encode([
+      'games' => $gameObjects,
+      'users' => $userObjects,
+    ]));
   }
 
   public function startGame() {
@@ -233,6 +289,29 @@ class GameController extends AppController {
         $this->finishGame($uniqid);
 
       print($result->toJSON());
+    } catch (\Throwable $e) {
+      switch ($e->getCode()) {
+        default:
+          return $this->throwGenericError();
+      }
+    }
+  }
+
+  public function deleteGame(array $params) {
+    if (!isset($params['uniqid']))
+      $this->throwValidationError(0);
+
+    $uniqid = $params['uniqid'];
+
+    try {
+      $sessionUser = $this->getUserFromCookie();
+
+      if ($sessionUser === null || $sessionUser->hasFlag(UserFlags::MODERATOR))
+        $this->throwNotAuthorized();
+
+      $this->gameRepository->deleteGameByUniqid($uniqid);
+
+      http_response_code(200);
     } catch (\Throwable $e) {
       switch ($e->getCode()) {
         default:

@@ -69,7 +69,7 @@ export const setVerboseUser = (user: UserVerbose): void => {
 };
 
 export const getVerboseUserFlags = (): Set<UserFlags> => {
-  const user = getVerboseUser();
+  const user = getUser();
   if (!user) return new Set();
 
   const flags: Set<UserFlags> = new Set();
