@@ -5,6 +5,7 @@ require_once 'src/php/controllers/ViewController.php';
 require_once 'src/php/controllers/AuthController.php';
 require_once 'src/php/controllers/AvatarController.php';
 require_once 'src/php/controllers/UserController.php';
+require_once 'src/php/controllers/GameController.php';
 require_once 'Route.php';
 
 class Router {
@@ -53,8 +54,10 @@ class Router {
 
             if (!array_key_exists($dir, $routesRef)) {
                 if (!array_key_exists(':param', $routesRef)) {
-                    if (strpos($path, 'api/') !== 0)
+                    if (strpos($path, 'api/') !== 0 && strpos($path, 'public/') !== 0) {
+                        http_response_code(404);
                         die(AppController::get404View());
+                    }
 
                     AppController::throwNotFound();
                 } else {

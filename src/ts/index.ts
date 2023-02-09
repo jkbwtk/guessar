@@ -1,3 +1,4 @@
+import { GameSettings } from './GameSettings.js';
 import { NavBar } from './NavBar.js';
 
 
@@ -29,3 +30,27 @@ mutationObserver.observe(topBar, {
   attributeFilter: ['class'],
   attributeOldValue: true,
 });
+
+
+const handleStartGame = async (ev: Event) => {
+  if (ev.target === null) return;
+  if (!(ev.target instanceof HTMLElement)) return;
+
+  ev.target.classList.add('button-awaiting');
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  await GameSettings.createGame({
+    allowMove: true,
+    allowPan: true,
+    allowZoom: true,
+    roundTime: 0,
+  });
+
+  ev.target.classList.remove('button-awaiting');
+};
+
+const startGame = document.getElementById('startGame');
+
+if (startGame !== null) {
+  startGame.addEventListener('click', handleStartGame);
+}

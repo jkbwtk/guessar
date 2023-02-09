@@ -329,6 +329,20 @@ button {
 
 a {
     outline: none;
+
+    text-decoration: none;
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+}
+
+a:visited {
+    color: inherit;
+}
+
+a:link {
+    color: inherit;
 }
 
 .button-small {
@@ -349,6 +363,8 @@ a {
     transition: box-shadow 0.2s ease-in-out;
 
     cursor: pointer;
+
+    flex-shrink: 0;
 }
 
 .button-small:hover {
@@ -533,5 +549,64 @@ a {
 
         background-size: contain;
         background-position: center;
+    }
+}
+
+.button-awaitable {
+    transition: filter 0.25s ease-in-out, opacity 0.25s ease-in-out, color 0.25s ease-in-out;
+}
+
+.button-disabled {
+    filter: contrast(0.8) grayscale(0.1);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.button-awaiting {
+    color: transparent;
+    position: relative;
+}
+
+.button-awaiting::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height: 100%;
+    width: 100%;
+
+    background-image: url('/public/img/spinner.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 2.8rem;
+
+    animation: fade-in 0.1s ease forwards, spin 1s ease infinite;
+
+    transition: color 0.1s;
+}
+
+.disabled {
+    pointer-events: none !important;
+    display: none !important;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
     }
 }

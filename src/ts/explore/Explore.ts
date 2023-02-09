@@ -1,19 +1,18 @@
-import { FpsCounter } from '../components/FpsCounter';
-import { Panorama } from './Panorama';
+import { Panorama } from '../panorama/Panorama';
 import { GetView } from '../types/panorama';
-import { Stylized } from '../components/Stylized';
-import { CompassBar } from '../components/CompassBar';
-import { ZoomControls } from '../components/ZoomControls';
-import { Minimap, MinimapMode } from '../components/Minimap';
-import { ViewControls } from '../components/ViewControls';
 import { Point } from 'leaflet';
+import { Stylized } from '../components/Stylized';
+import { FpsCounter } from '../components/FpsCounter';
+import { CompassBar } from '../components/CompassBar';
+import { Minimap, MinimapMode } from '../components/Minimap';
 import { UserWidget } from '../components/UserWidget';
+import { ViewControls } from '../components/ViewControls';
+import { ZoomControls } from '../components/ZoomControls';
 
 
-export class PanoramaViewer extends Stylized {
+export class Explore extends Stylized {
   protected styles = Stylized.createStyle('/public/css/components/PanoramaViewer.css');
 
-  private container: HTMLElement;
   private ui: HTMLDivElement;
 
   private panorama: Panorama;
@@ -24,7 +23,7 @@ export class PanoramaViewer extends Stylized {
   private arrows: ViewControls;
   private userWidget: UserWidget;
 
-  constructor(container: HTMLElement) {
+  constructor(private container: HTMLElement) {
     super();
 
     this.container = container;
@@ -130,8 +129,8 @@ export class PanoramaViewer extends Stylized {
       window.history.replaceState('', '', url);
     });
 
-    this.zoom.zoomIn.addEventListener('click', () => this.panorama.controls.zoomIn());
-    this.zoom.zoomOut.addEventListener('click', () => this.panorama.controls.zoomOut());
+    this.zoom.zoomIn.addEventListener('click', this.panorama.controls.zoomIn);
+    this.zoom.zoomOut.addEventListener('click', this.panorama.controls.zoomOut);
 
     this.zoom.zoomSlider.addEventListener('input', () => {
       this.panorama.controls.fov = parseFloat(this.zoom.zoomSlider.value);

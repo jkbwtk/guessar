@@ -119,15 +119,15 @@ class User {
   }
 
   public function hasFlag(UserFlags $flag): bool {
-    return ($this->flags & (int)$flag) === $flag;
+    return ($this->flags & $flag->value) === $flag;
   }
 
   public function addFlag(UserFlags $flag): void {
-    $this->flags += (int)$flag;
+    $this->flags += $flag->value;
   }
 
   public function removeFlag(UserFlags $flag): void {
-    $this->flags -= (int)$flag;
+    $this->flags -= $flag->value;
   }
 
   public function validatePassword(string $nonHashedPassword): bool {

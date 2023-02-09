@@ -12,6 +12,8 @@ export interface PanoramaOptions {
   fov: number;
   panoramaDirLevel: number;
   fade: boolean;
+  allowPan: boolean;
+  allowZoom: boolean;
 }
 
 declare interface Panorama {
@@ -35,6 +37,8 @@ class Panorama extends EventEmitter {
     fov: 90,
     panoramaDirLevel: 3,
     fade: true,
+    allowPan: true,
+    allowZoom: true,
   };
 
   private options: PanoramaOptions;
@@ -68,7 +72,12 @@ class Panorama extends EventEmitter {
     this.ctx = ctx;
 
     this.camera = new Camera(this.options.fov, this.aspectRatio, 1, 2000);
-    this.controls = new PanoramaControls(this.camera, this.canvas);
+    this.controls = new PanoramaControls(this.camera, this.canvas, {
+      controls: {
+        allowPan: this.options.allowPan,
+        allowZoom: this.options.allowZoom,
+      },
+    });
 
 
     const vertexShader = this.createShader(this.ctx.VERTEX_SHADER, vertexShaderSource);

@@ -36,9 +36,9 @@ class ViewController extends AppController {
 
       $response = [
         'data' => [
-          'target' => $view->toObject(),
+          'target' => $view->toObject(false),
           'neighbors' => array_map(function ($neighbor) {
-            return $neighbor->toObject();
+            return $neighbor->toObject(false);
           }, $neighbors)
         ]
       ];
@@ -62,9 +62,9 @@ class ViewController extends AppController {
 
       $response = [
         'data' => [
-          'target' => $view->toObject(),
+          'target' => $view->toObject(false),
           'neighbors' => array_map(function ($neighbor) {
-            return $neighbor->toObject();
+            return $neighbor->toObject(false);
           }, $neighbors)
         ]
       ];
@@ -99,9 +99,9 @@ class ViewController extends AppController {
 
       $response = [
         'data' => [
-          'target' => $view->toObject(),
+          'target' => $view->toObject(false),
           'neighbors' => array_map(function ($neighbor) {
-            return $neighbor->toObject();
+            return $neighbor->toObject(false);
           }, $neighbors)
         ]
       ];

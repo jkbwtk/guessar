@@ -76,4 +76,8 @@ export class Node<T extends keyof HTMLElementTagNameMap> {
   public static href = <T extends HTMLElementTagNameMap['a']>(href: string): ((v: T) => void) => {
     return ((v) => v.href = href);
   };
+
+  public toString(): string {
+    return this.unwrapSafe().outerHTML;
+  }
 }

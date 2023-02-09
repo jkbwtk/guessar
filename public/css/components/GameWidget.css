@@ -1,0 +1,40 @@
+.game-widget-container {
+  box-sizing: border-box;
+  padding: 1.2rem 1.6rem;
+
+  background-color: var(--app-acc-color);
+
+  border-radius: 0 1.6rem 1.6rem 0;
+
+  display: grid;
+  grid-template-columns: min-content min-content min-content;
+  column-gap: 2rem;
+
+  white-space: nowrap;
+}
+
+.game-widget-text-small {
+  font-size: 1.6rem;
+}
+
+.game-widget-text-big {
+  font-size: 2.8rem;
+}
+
+.game-widget-text-blink {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% {
+    color: inherit;
+  }
+
+  50% {
+    color: #e42e2e;
+  }
+
+  100% {
+    color: inherit;
+  }
+}

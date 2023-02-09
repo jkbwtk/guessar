@@ -6,6 +6,8 @@ public/img/panoramas*
 public/img/tiles
 docker/postgres/database.sql
 
+public/css/leaflet.css
+
 # python files
 __pycache__
 

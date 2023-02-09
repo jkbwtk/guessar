@@ -195,8 +195,8 @@ class View {
     $this->neighbors = $neighbors;
   }
 
-  public function toObject() {
-    return [
+  public function toObject(bool $verbose = true) {
+    return $verbose ? [
       'uuid' => $this->uuid,
       'position' => [
         'x' => $this->position_x,
@@ -222,10 +222,19 @@ class View {
         'w' => $this->quaternion_w
       ],
       'neighbors' => $this->neighbors
-    ];
+    ] : [
+        'uuid' => $this->uuid,
+        'position' => [
+          'x' => $this->position_x,
+          'y' => $this->position_y,
+          'z' => $this->position_z,
+          'r' => $this->position_rad
+        ],
+        'neighbors' => $this->neighbors
+      ];
   }
 
-  public function toJSON(): string {
-    return json_encode($this->toObject());
+  public function toJSON(bool $verbose = false): string {
+    return json_encode($this->toObject($verbose));
   }
 }

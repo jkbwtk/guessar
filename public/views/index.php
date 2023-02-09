@@ -10,7 +10,8 @@
 
   <title>Guessar - Homepage</title>
 
-  <link rel="preload" href="/public/fonts/SquarishSansCTRegular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/public/fonts/SquarishSansCTRegular.woff2" as="font" type="font/woff2"
+    crossorigin="anonymous">
   <link rel="preload" href="/public/img/logo.svg" as="image">
   <link rel="preload" href="/public/img/flag.svg" as="image">
 
@@ -27,8 +28,8 @@
     <h1 class="text-logo">GTA:SA GeoGuesser</h1>
     <h2 class="catchphrase">Every panorama is personalized.</h2>
 
-    <button class="button-big" style="align-self: center;">Single Player</button>
-    <button class="button-aux" style="align-self: center;">Challenge mode</button>
+    <button id="startGame" class="button-big" style="align-self: center;">Start game</button>
+    <a href="/game" class="button-aux" style="align-self: center;">Challenge mode</a>
 
     <div class="background04"></div>
   </div>

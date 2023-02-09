@@ -16,6 +16,10 @@ export interface PanoramaControlsOptions {
     smooth: boolean,
     damping: number,
   }
+  controls: {
+    allowZoom: boolean,
+    allowPan: boolean,
+  }
 }
 
 export class PanoramaControls {
@@ -47,6 +51,10 @@ export class PanoramaControls {
 
       smooth: true,
       damping: 5,
+    },
+    controls: {
+      allowZoom: true,
+      allowPan: true,
     },
   };
 
@@ -181,8 +189,8 @@ export class PanoramaControls {
   }
 
   private registerEventHandlers() {
-    this.controller.addEventListener('pointerdown', this.hadleMouseDown);
-    this.controller.addEventListener('wheel', this.handleWheel, { passive: false });
+    if (this.options.controls.allowPan) this.controller.addEventListener('pointerdown', this.hadleMouseDown);
+    if (this.options.controls.allowZoom) this.controller.addEventListener('wheel', this.handleWheel, { passive: false });
   }
 
   private hadleMouseDown = (event: PointerEvent) => {
@@ -235,15 +243,15 @@ export class PanoramaControls {
     }
   };
 
-  public zoomIn(): void {
+  public zoomIn = (): void => {
     this.targetFov -= this.options.fov.step;
     this.targetFov = clamp(this.targetFov, this.options.fov.min, this.options.fov.max);
-  }
+  };
 
-  public zoomOut(): void {
+  public zoomOut = (): void => {
     this.targetFov += this.options.fov.step;
     this.targetFov = clamp(this.targetFov, this.options.fov.min, this.options.fov.max);
-  }
+  };
 
   private moveCamera(position: Vector2, delta: Vector2) {
     const width = this.controllerWidth;

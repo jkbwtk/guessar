@@ -66,7 +66,9 @@
 
 .minimap-map {
   /* background-color: #000000a8 !important; */
-  background-color: #6e88aa !important;
+  /* background-color: #6e88aa !important; */
+  background-color: #3a4e4e !important;
+
   border-radius: 1.6rem;
   box-shadow: 0px 0px 0.4rem #6e88aa88;
 
@@ -95,7 +97,8 @@
   width: 100%;
   height: 100%;
 
-  background-color: #6e88aa !important;
+  /* background-color: #6e88aa !important; */
+  background-color: #3a4e4e !important;
 
   box-sizing: border-box;
 

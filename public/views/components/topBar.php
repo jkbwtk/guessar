@@ -1,4 +1,4 @@
-<div class="top-bar">
+<div class="top-bar" id="topBar">
   <button class="button-small nav-burger-mobile top-mobile" id="navBurgerMobile">
     <img src="/public/img/burgerMobile.svg" alt="More" />
   </button>
