@@ -70,8 +70,6 @@ export class InputValidator {
         element.reportValidity();
         if (!element.validity.valid) element.dispatchEvent(new Event('authEventInvalid'));
         else element.dispatchEvent(new Event('authEventValid'));
-
-        console.log('ValidityState:', element.id, element.validationMessage);
       }
     }, this.timeout);
   };

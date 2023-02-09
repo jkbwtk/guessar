@@ -92,7 +92,6 @@ class ViewControls extends Component<HTMLDivElement, ViewControlsOptions> {
     const height = this.element.clientHeight;
 
     const shortSide = Math.min(width, height);
-    console.log('Short side:', shortSide);
 
     document.documentElement.style.setProperty('--view-controls-arrow-width', `${shortSide * 0.5}px`);
     document.documentElement.style.setProperty('--view-controls-container-short', `${shortSide}px`);

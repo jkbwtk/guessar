@@ -85,8 +85,6 @@ export class GameWidget extends Component<HTMLDivElement, GameWidgetOptions, Gam
   }
 
   public setTimer(roundStartTime: number, roundTime: number): void {
-    console.log(roundStartTime, roundTime);
-
     if (this.interval) {
       clearInterval(this.interval);
     }

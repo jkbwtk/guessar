@@ -197,7 +197,6 @@ class Panorama extends EventEmitter {
       return shader;
     }
 
-    console.log(this.ctx.getShaderInfoLog(shader));
     this.ctx.deleteShader(shader);
     throw Error('Shader compilation failed');
   }
@@ -215,7 +214,6 @@ class Panorama extends EventEmitter {
       return program;
     }
 
-    console.log(this.ctx.getProgramInfoLog(program));
     this.ctx.deleteProgram(program);
     throw Error('Program init failed');
   }

@@ -14,7 +14,6 @@ export class ImageLoader {
   public load(url: string): Promise<ImageBitmap> {
     const request = this.requests.get(url);
     if (request !== undefined) {
-      console.log('Cache hit');
       return request.promise;
     }
 

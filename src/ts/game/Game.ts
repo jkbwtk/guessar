@@ -22,8 +22,6 @@ export class Game {
   private state: GameState;
 
   constructor(private container: HTMLElement, private topBar: HTMLElement, private game: GameInfo) {
-    console.log(this.game);
-
     this.summaryInterface = new Summary();
     this.guessingInterface = new Guessing({
       allowMove: (this.game.settings & 1) !== 0,

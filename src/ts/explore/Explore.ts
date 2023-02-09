@@ -142,7 +142,6 @@ export class Explore extends Stylized {
   }
 
   private handleMapConfirmPick = async (point: Point) => {
-    console.log('confirmPick', point);
     this.map.pickMarker.setOpacity(0);
     await this.changeClosestPanorama(point);
   };

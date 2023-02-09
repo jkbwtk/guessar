@@ -118,8 +118,6 @@ export class Guessing extends Component<HTMLDivElement, GuessingOptions> {
   }
 
   private registerEventHandlers(): void {
-    console.log(this.options);
-
     this.panorama.on('rotation', (rotation) => {
       this.compass.setHeading(rotation.phi);
       this.arrows.rotate(rotation, this.panorama.controls.fov);
