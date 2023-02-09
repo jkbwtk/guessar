@@ -20,6 +20,14 @@
   grid-row: 1 / 4;
 }
 
+.round-summary-map .leaflet-map-pane {
+  z-index: inherit;
+}
+
+.round-summary-map .leaflet-top {
+  z-index: 0;
+}
+
 .round-summary-sub-container {
   display: flex;
   flex-direction: column;
@@ -52,7 +60,7 @@
   height: 2rem;
   width: 100%;
 
-  background-color: #EB664580;
+  background-color: #7e3b2b;
   border-radius: 200rem;
 
   position: relative;
@@ -78,7 +86,7 @@
 }
 
 .round-summary-info-distance-accent {
-  background-color: #50505080;
+  background-color: #303030;
   border-radius: 2rem 0 2rem 0;
 
   padding: 0.7rem 1.2rem;

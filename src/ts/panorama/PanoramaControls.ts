@@ -189,6 +189,8 @@ export class PanoramaControls {
   }
 
   private registerEventHandlers() {
+    window.addEventListener('touchmove', (event) => event.preventDefault(), { passive: false });
+
     if (this.options.controls.allowPan) this.controller.addEventListener('pointerdown', this.hadleMouseDown);
     if (this.options.controls.allowZoom) this.controller.addEventListener('wheel', this.handleWheel, { passive: false });
   }

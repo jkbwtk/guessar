@@ -88,3 +88,17 @@
 
   translate: -1.6rem 0;
 }
+
+@media screen and (max-width: 600px) {
+  .panorama-ui-counter {
+    display: none;
+  }
+
+  .panorama-ui-user-widget {
+    display: none;
+  }
+
+  .panorama-ui-game-widget {
+    display: none;
+  }
+}

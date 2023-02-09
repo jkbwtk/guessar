@@ -3,6 +3,7 @@ import { RasterCoords } from './RasterCoords';
 import { Component } from './Component';
 import { Stylized } from './Stylized';
 import { LeafletFactory } from '../LeafletFactory';
+import { Node } from './Node';
 
 
 export enum MinimapMode {
@@ -36,6 +37,7 @@ export class Minimap extends Component<HTMLDivElement, MinimapOptions> {
   public resizeButton: HTMLButtonElement;
   public returnButton: HTMLButtonElement;
   public confirmButton: HTMLButtonElement;
+  public activationButton: HTMLButtonElement;
   public minimap: LeafletMap;
   public coords: RasterCoords;
   public pickMarker: Marker;
@@ -72,7 +74,7 @@ export class Minimap extends Component<HTMLDivElement, MinimapOptions> {
   constructor(options: Partial<MinimapOptions> = {}) {
     super(options);
 
-    [this.element, this.minimapElement, this.resizeButton, this.confirmButton, this.returnButton] = this.createElement();
+    [this.element, this.minimapElement, this.resizeButton, this.confirmButton, this.returnButton, this.activationButton] = this.createElement();
 
     this.pickMarker = LeafletFactory.pickMarker(0);
     this.positionMarker = LeafletFactory.positionMarker(0);
@@ -97,6 +99,14 @@ export class Minimap extends Component<HTMLDivElement, MinimapOptions> {
   }
 
   private registerEventHandlers(): void {
+    this.activationButton.addEventListener('click', (ev) => {
+      if (this.element.hasAttribute('active') && this.element.getAttribute('active') === 'true') {
+        this.deactivateMinimap();
+      } else {
+        this.activateMap();
+      }
+    });
+
     this.confirmButton.addEventListener('click', () => {
       this.emit('confirmPick', this.coords.projectMap(this.pickMarker.getLatLng()));
     });
@@ -190,7 +200,7 @@ export class Minimap extends Component<HTMLDivElement, MinimapOptions> {
     return fontSize * remNumber;
   }
 
-  private createElement(): [HTMLDivElement, HTMLDivElement, HTMLButtonElement, HTMLButtonElement, HTMLButtonElement] {
+  private createElement(): [HTMLDivElement, HTMLDivElement, HTMLButtonElement, HTMLButtonElement, HTMLButtonElement, HTMLButtonElement] {
     const minimap = document.createElement('div');
     minimap.classList.add('minimap-map');
 
@@ -237,8 +247,16 @@ export class Minimap extends Component<HTMLDivElement, MinimapOptions> {
       tmp4.appendChild(returnButton);
     }
 
+    const activationButton = new Node('button')
+      .addClass('minimap-activation')
+      .addClass('minimap-button')
+      .appendChild(new Node('img').map(Node.src('/public/img/mapIcon.svg')).unwrapUnsafe())
+      .unwrapUnsafe();
 
-    return [element, minimap, resizeButton, confirmButton, returnButton];
+    tmp4.appendChild(activationButton);
+
+
+    return [element, minimap, resizeButton, confirmButton, returnButton, activationButton];
   }
 
   private deactivateMinimap() {
