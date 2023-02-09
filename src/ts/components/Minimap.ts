@@ -2,6 +2,7 @@ import { CRS, Icon, LayerGroup, Map as LeafletMap, Marker, Point, TileLayer } fr
 import { RasterCoords } from './RasterCoords';
 import { Component } from './Component';
 import { Stylized } from './Stylized';
+import { LeafletFactory } from '../LeafletFactory';
 
 
 export enum MinimapMode {
@@ -27,7 +28,7 @@ export declare interface Minimap {
 export class Minimap extends Component<HTMLDivElement, MinimapOptions> {
   protected styles = [
     Stylized.createStyle('/public/css/components/Minimap.css'),
-    Stylized.createStyle('https://unpkg.com/leaflet@1.9.3/dist/leaflet.css', 'sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=', ''),
+    Stylized.createStyle('/public/css/leaflet.css'),
   ];
 
   public element: HTMLDivElement;
@@ -39,8 +40,6 @@ export class Minimap extends Component<HTMLDivElement, MinimapOptions> {
   public coords: RasterCoords;
   public pickMarker: Marker;
   public positionMarker: Marker;
-  private imageSize: [number, number] = [16384, 16384];
-  private mapSize: [number, number] = [6000, 6000];
   private animating = false;
   private clickStart: [number, number] = [0, 0];
   private minimapSizeOffset: [number, number] = [0, 0];
@@ -75,22 +74,8 @@ export class Minimap extends Component<HTMLDivElement, MinimapOptions> {
 
     [this.element, this.minimapElement, this.resizeButton, this.confirmButton, this.returnButton] = this.createElement();
 
-    this.pickMarker = new Marker([0, 0], {
-      icon: new Icon({
-        iconUrl: '/public/img/mapMarker.svg',
-        iconSize: [25, 25],
-        iconAnchor: [12.5, 12.5],
-      }),
-      opacity: 0,
-    });
-    this.positionMarker = new Marker([0, 0], {
-      icon: new Icon({
-        iconUrl: '/public/img/radarCentre.svg',
-        iconSize: [25, 25],
-        iconAnchor: [12.5, 12.5],
-      }),
-      opacity: 0,
-    });
+    this.pickMarker = LeafletFactory.pickMarker(0);
+    this.positionMarker = LeafletFactory.positionMarker(0);
 
     [this.minimap, this.coords] = this.createMap();
 
@@ -107,6 +92,7 @@ export class Minimap extends Component<HTMLDivElement, MinimapOptions> {
 
   public mounted(): void {
     this.minimap.invalidateSize();
+    this.deactivateMinimap();
     this.minimap.setView(this.coords.unprojectMap([0, 0]), 0);
   }
 
@@ -277,36 +263,14 @@ export class Minimap extends Component<HTMLDivElement, MinimapOptions> {
   }
 
   private createMap(): [LeafletMap, RasterCoords] {
-    const minimap = new LeafletMap(this.minimapElement, {
-      crs: CRS.Simple,
-      zoomSnap: 0.25,
-      attributionControl: false,
-      zoom: 0,
-    });
+    const minimap = LeafletFactory.map(this.minimapElement);
 
-    const coords = new RasterCoords(minimap, this.imageSize, this.mapSize, 256);
+    const coords = new RasterCoords(minimap, LeafletFactory.imageSize, LeafletFactory.mapSize, 256);
     minimap.options.center = coords.unprojectMap([0, 0]);
     minimap.setView(minimap.options.center, 0);
 
-    const baseLayer = new TileLayer('/public/img/tiles/vector/0/0/0.webp', {
-      noWrap: true,
-      bounds: coords.getMaxBounds(),
-      maxNativeZoom: 0,
-      minNativeZoom: 0,
-      maxZoom: coords.zoomLevel(),
-      tileSize: 256,
-      keepBuffer: 4,
-    });
-
-    const activeLayer = new TileLayer('/public/img/tiles/vector/{z}/{x}/{y}.webp', {
-      noWrap: true,
-      bounds: coords.getMaxBounds(),
-      maxNativeZoom: coords.zoomLevelReal(),
-      minNativeZoom: 0,
-      maxZoom: coords.zoomLevel(),
-      tileSize: 256,
-      keepBuffer: 4,
-    });
+    const baseLayer = LeafletFactory.baseLayer(coords);
+    const activeLayer = LeafletFactory.activeLayer(coords);
 
     const vectorGroup = new LayerGroup([baseLayer, activeLayer]);
     vectorGroup.addTo(minimap);
