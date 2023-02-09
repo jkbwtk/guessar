@@ -9,7 +9,7 @@ GTA:SA geo guessing website
 - Docker
 - Python
 
-## Setup
+## Development environment setup
 1. Install npm dependencies
 ```bash
 npm ci
@@ -25,18 +25,23 @@ pip install -r requirements.txt
 npm run build
 ```
 
-4. Generate public resources
+4. Copy `leaflet.css` to `public/css/`
+```bash
+cp node_modules/leaflet/dist/leaflet.css public/css/
+```
+
+5. Generate public resources
 ```bash
 python tools/panoramaOptimizer.py
 python tools/tileGenerator.py
 ```
 
-5. Generate database template
+6. Generate database template
 ```bash
 python tools/databaseGenerator.py
 ```
 
-6. Start docker containers
+7. Start docker containers
 ```bash
 docker compose up
 ```
