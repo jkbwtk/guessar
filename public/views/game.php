@@ -44,22 +44,31 @@
         <div class="game-start-settings-grid">
           <img class="game-start-setting-icon" src="/public/img/zoom.svg">
           <span class="game-start-setting-name">Zoom</span>
-          <input class="game-start-setting-input" id="roundZoomInput" type="checkbox" checked="true">
+          <div class="checkbox-default-container">
+            <input class="game-start-setting-input" id="roundZoomInput" type="checkbox" checked="true">
+            <label for="roundZoomInput"></label>
+          </div>
 
           <img class="game-start-setting-icon" src="/public/img/pan.svg">
           <span class="game-start-setting-name">Pan</span>
-          <input class="game-start-setting-input" id="roundPanInput" type="checkbox" checked="true">
+          <div class="checkbox-default-container">
+            <input class="game-start-setting-input" id="roundPanInput" type="checkbox" checked="true">
+            <label for="roundPanInput"></label>
+          </div>
 
           <img class="game-start-setting-icon" src="/public/img/move.svg">
           <span class="game-start-setting-name">Move</span>
-          <input class="game-start-setting-input" id="roundMoveInput" type="checkbox" checked="true">
+          <div class="checkbox-default-container">
+            <input class="game-start-setting-input" id="roundMoveInput" type="checkbox" checked="true">
+            <label for="roundMoveInput"></label>
+          </div>
 
           <img class="game-start-setting-icon" src="/public/img/timer.svg">
           <span class="game-start-setting-name">Round time:</span>
           <span class="game-start-setting-value" id="roundTimeLabel">0</span>
 
-          <input class="game-start-setting-input" id="roundTimeInput" type="range" value="0" min="0" max="300" step="30"
-            style="grid-column: 1 /span 3; width: 100%">
+          <input class="game-start-setting-input range-default" id="roundTimeInput" type="range" value="0" min="0"
+            max="300" step="30" style="grid-column: 1 /span 3; width: 100%">
 
           <span class="game-start-settings-hint">(Set to 0s for no time limit)</span>
         </div>
