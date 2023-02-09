@@ -71,17 +71,7 @@ export class SummaryMap extends Component<HTMLDivElement, SummaryMapOptions> {
   }
 
   private createMap(): [LeafletMap, RasterCoords] {
-    const minimap = LeafletFactory.map(this.element);
-
-    const coords = new RasterCoords(minimap, LeafletFactory.imageSize, LeafletFactory.mapSize, 256);
-    minimap.options.center = coords.unprojectMap([0, 0]);
-    minimap.setView(minimap.options.center, 0);
-
-    const baseLayer = LeafletFactory.baseLayer(coords);
-    const activeLayer = LeafletFactory.activeLayer(coords);
-
-    const vectorGroup = new LayerGroup([baseLayer, activeLayer]);
-    vectorGroup.addTo(minimap);
+    const [minimap, coords] = LeafletFactory.vectorMap(this.element);
 
     minimap.addLayer(this.pickMarker);
     minimap.addLayer(this.targetMarker);

@@ -8,8 +8,8 @@
       "tileSize": 256
     },
     {
-      "source": "resources/satelite-map.jpg",
-      "outDir": "./public/img/tiles/satelite",
+      "source": "resources/satellite-map.jpg",
+      "outDir": "./public/img/tiles/satellite",
       "width": 6000,
       "height": 6000,
       "tileSize": 256

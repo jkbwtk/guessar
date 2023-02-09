@@ -1,10 +1,12 @@
-import { CRS, Icon, LatLngBoundsExpression, LatLngExpression, Map, Marker, Polyline, TileLayer } from 'leaflet';
+import { CRS, Icon, LatLngBoundsExpression, LatLngExpression, LayerGroup, Map, Marker, Polyline, TileLayer } from 'leaflet';
 import { RasterCoords } from './components/RasterCoords';
 
 
 export class LeafletFactory {
-  public static imageSize: [number, number] = [16384, 16384];
+  public static vectorImageSize: [number, number] = [16384, 16384];
+  public static satelliteImageSize: [number, number] = [6000, 6000];
   public static mapSize: [number, number] = [6000, 6000];
+  public static tileSize = 256;
 
   public static pickMarker = (opacity: number): Marker => new Marker([0, 0], {
     icon: new Icon({
@@ -33,25 +35,33 @@ export class LeafletFactory {
     opacity,
   });
 
-  public static baseLayer = (coords: RasterCoords): TileLayer => new TileLayer('/public/img/tiles/satelite_hq/0/0/0.webp', {
+  private static baseLayer = (coords: RasterCoords, url: string): TileLayer => new TileLayer(url, {
     noWrap: true,
     bounds: coords.getMaxBounds(),
     maxNativeZoom: 0,
     minNativeZoom: 0,
     maxZoom: coords.zoomLevel(),
-    tileSize: 256,
+    tileSize: LeafletFactory.tileSize,
     keepBuffer: 4,
   });
 
-  public static activeLayer = (coords: RasterCoords): TileLayer => new TileLayer('/public/img/tiles/satelite_hq/{z}/{x}/{y}.webp', {
+  private static activeLayer = (coords: RasterCoords, url: string): TileLayer => new TileLayer(url, {
     noWrap: true,
     bounds: coords.getMaxBounds(),
     maxNativeZoom: coords.zoomLevelReal(),
     minNativeZoom: 0,
     maxZoom: coords.zoomLevel() * 8,
-    tileSize: 256,
+    tileSize: LeafletFactory.tileSize,
     keepBuffer: 4,
   });
+
+  public static satelliteBaseLayer = (coords: RasterCoords): TileLayer => LeafletFactory.baseLayer(coords, '/public/img/tiles/satellite/0/0/0.webp');
+
+  public static satelliteActiveLayer = (coords: RasterCoords): TileLayer => LeafletFactory.activeLayer(coords, '/public/img/tiles/satellite/{z}/{x}/{y}.webp');
+
+  public static vectorBaseLayer = (coords: RasterCoords): TileLayer => LeafletFactory.baseLayer(coords, '/public/img/tiles/vector/0/0/0.webp');
+
+  public static vectorActiveLayer = (coords: RasterCoords): TileLayer => LeafletFactory.activeLayer(coords, '/public/img/tiles/vector/{z}/{x}/{y}.webp');
 
   public static map = (element: string | HTMLElement): Map => new Map(element, {
     crs: CRS.Simple,
@@ -59,6 +69,46 @@ export class LeafletFactory {
     attributionControl: false,
     zoom: 0,
   });
+
+  private static advancedMap = (element: string | HTMLElement, imageSize: [number, number]): [Map, RasterCoords] => {
+    const map = LeafletFactory.map(element);
+
+    const coords = new RasterCoords(
+      map,
+      imageSize,
+      LeafletFactory.mapSize,
+      LeafletFactory.tileSize,
+    );
+
+    map.options.center = coords.unprojectMap([0, 0]);
+    map.setView(map.options.center, 0);
+
+    return [map, coords];
+  };
+
+  public static satelliteMap = (element: string | HTMLElement): [Map, RasterCoords] => {
+    const [map, coords] = LeafletFactory.advancedMap(element, LeafletFactory.satelliteImageSize);
+
+    const baseLayer = LeafletFactory.satelliteBaseLayer(coords);
+    const activeLayer = LeafletFactory.satelliteActiveLayer(coords);
+
+    const vectorGroup = new LayerGroup([baseLayer, activeLayer]);
+    vectorGroup.addTo(map);
+
+    return [map, coords];
+  };
+
+  public static vectorMap = (element: string | HTMLElement): [Map, RasterCoords] => {
+    const [map, coords] = LeafletFactory.advancedMap(element, LeafletFactory.vectorImageSize);
+
+    const baseLayer = LeafletFactory.vectorBaseLayer(coords);
+    const activeLayer = LeafletFactory.vectorActiveLayer(coords);
+
+    const vectorGroup = new LayerGroup([baseLayer, activeLayer]);
+    vectorGroup.addTo(map);
+
+    return [map, coords];
+  };
 
   public static polyLine = (latlngs: LatLngExpression[] = []): Polyline => new Polyline(latlngs, {
     weight: 4,
