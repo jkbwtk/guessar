@@ -288,3 +288,20 @@
 .auth-option>a:hover {
     text-decoration: underline;
 }
+
+@media screen and (max-width: 600px) {
+    .auth-box {
+        position: initial;
+        top: initial;
+        left: initial;
+        transform: initial;
+
+        margin-top: auto;
+        margin-bottom: auto;
+
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+
+        width: auto
+    }
+}

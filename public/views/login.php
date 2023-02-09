@@ -10,7 +10,8 @@
 
   <title>Guessar - Login</title>
 
-  <link rel="preload" href="/public/fonts/SquarishSansCTRegular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/public/fonts/SquarishSansCTRegular.woff2" as="font" type="font/woff2"
+    crossorigin="anonymous">
   <link rel="preload" href="/public/img/logo.svg" as="image">
   <link rel="preload" href="/public/img/flag.svg" as="image">
 
@@ -21,7 +22,7 @@
   <script type="module" src="/public/js/login.js"></script>
 </head>
 
-<body style="overflow: hidden;">
+<body>
   <div class="container">
     <?php include 'public/views/components/topBar.php' ?>
 
