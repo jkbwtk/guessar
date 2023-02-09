@@ -1,4 +1,4 @@
-FROM php:8.1.9-fpm-alpine3.16
+FROM php:8.2-fpm-alpine3.17
 
 ENV RUN_DEPS \
     zlib \
