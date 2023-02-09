@@ -120,7 +120,7 @@ class Game {
         throw new Exception('Cannot finish game with unfinished rounds');
       }
 
-      if ($round->getTime() <= $this->time_limit) {
+      if ($this->time_limit === 0 || $round->getTime() <= $this->time_limit) {
         $this->final_score += $round->getScore();
         $this->final_time += $round->getTime();
       }

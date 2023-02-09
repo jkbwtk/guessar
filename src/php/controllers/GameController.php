@@ -347,7 +347,7 @@ class GameController extends AppController {
     if ($data['roundTime'] > 180)
       $this->throwValidationError(41);
 
-    if ($data['roundTime'] % 5 !== 0)
+    if ($data['roundTime'] % 30 !== 0)
       $this->throwValidationError(42);
 
     return true;
