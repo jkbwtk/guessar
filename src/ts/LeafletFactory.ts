@@ -95,6 +95,8 @@ export class LeafletFactory {
     const vectorGroup = new LayerGroup([baseLayer, activeLayer]);
     vectorGroup.addTo(map);
 
+    map.getContainer().style.background = '#3a4e4e';
+
     return [map, coords];
   };
 
@@ -106,6 +108,8 @@ export class LeafletFactory {
 
     const vectorGroup = new LayerGroup([baseLayer, activeLayer]);
     vectorGroup.addTo(map);
+
+    map.getContainer().style.background = '#6e88aa';
 
     return [map, coords];
   };

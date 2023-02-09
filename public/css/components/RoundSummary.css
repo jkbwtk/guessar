@@ -15,7 +15,6 @@
 }
 
 .round-summary-map {
-  background-color: #3a4e4e !important;
   border-radius: 2rem;
 
   grid-row: 1 / 4;
